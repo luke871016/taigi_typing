@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台語文打字練習系統</title>
+    <title>台語文拍字練習</title>
     <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
     <style>
         * {
@@ -748,7 +748,8 @@
                 paragraphs = tailoParagraphs;
             }
 
-            stats.totalChars = paragraphs.reduce((sum, p) => sum + p.length, 0);
+            // 暫時設為0，待DOM生成後再計算音節數
+            stats.totalChars = 0;
 
             document.getElementById('setupArea').style.display = 'none';
             document.getElementById('statsBar').classList.add('active');
@@ -800,6 +801,12 @@
                     input.style.opacity = '0.5';
                     input.style.pointerEvents = 'none';
                 }
+            });
+
+            // 計算總音節數（從所有段落的 char-mark 元素計算）
+            stats.totalChars = 0;
+            container.querySelectorAll('.reference-text').forEach(refText => {
+                stats.totalChars += countSyllablesFromDOM(refText);
             });
         }
 
@@ -1260,30 +1267,44 @@
 
         // 更新统计
         function updateStats(referenceText, typedText, paragraphIndex) {
+            // 計算當前段落的正確和錯誤音節數
+            const refTextElement = document.getElementById('refText' + paragraphIndex);
+            const charMarks = refTextElement.querySelectorAll('.char-mark');
+            
             let correct = 0;
             let errors = 0;
-
-            for (let i = 0; i < typedText.length; i++) {
-                if (typedText[i] === referenceText[i]) {
-                    correct++;
-                } else {
-                    errors++;
+            
+            // 統計當前段落中正確和錯誤的音節
+            charMarks.forEach(mark => {
+                const syllableCount = getSyllableCountFromMark(mark);
+                
+                if (mark.classList.contains('correct')) {
+                    correct += syllableCount;
+                } else if (mark.classList.contains('incorrect')) {
+                    errors += syllableCount;
                 }
-            }
-
-            let totalTyped = 0;
-            document.querySelectorAll('.typing-input').forEach(input => {
-                totalTyped += input.value.length;
             });
 
-            const missed = stats.totalChars - totalTyped;
+            // 計算所有段落的已打音節數
+            let totalTypedSyllables = 0;
+            document.querySelectorAll('.typing-input').forEach((input, idx) => {
+                const refText = document.getElementById('refText' + idx);
+                const marks = refText.querySelectorAll('.char-mark');
+                marks.forEach(mark => {
+                    if (mark.classList.contains('correct') || mark.classList.contains('incorrect')) {
+                        totalTypedSyllables += getSyllableCountFromMark(mark);
+                    }
+                });
+            });
+
+            const missed = stats.totalChars - totalTypedSyllables;
 
             document.getElementById('correctDisplay').textContent = correct;
             document.getElementById('errorDisplay').textContent = errors;
             document.getElementById('missedDisplay').textContent = Math.max(0, missed);
 
             if (stats.elapsedTime > 0) {
-                const speed = Math.round((totalTyped / stats.elapsedTime) * 60);
+                const speed = Math.round((totalTypedSyllables / stats.elapsedTime) * 60);
                 document.getElementById('speedDisplay').textContent = speed;
             }
 
@@ -1341,39 +1362,43 @@
 
             let totalCorrect = 0;
             let totalErrors = 0;
-            let totalTyped = 0;
+            let totalTypedSyllables = 0;
 
+            // 統計所有段落的音節數
             document.querySelectorAll('.typing-input').forEach((input, index) => {
-                const referenceText = paragraphs[index];
-                const typedText = input.value;
-                totalTyped += typedText.length;
-
-                for (let i = 0; i < typedText.length; i++) {
-                    if (typedText[i] === referenceText[i]) {
-                        totalCorrect++;
-                    } else {
-                        totalErrors++;
+                const refText = document.getElementById('refText' + index);
+                const charMarks = refText.querySelectorAll('.char-mark');
+                
+                charMarks.forEach(mark => {
+                    const syllableCount = getSyllableCountFromMark(mark);
+                    
+                    if (mark.classList.contains('correct')) {
+                        totalCorrect += syllableCount;
+                        totalTypedSyllables += syllableCount;
+                    } else if (mark.classList.contains('incorrect')) {
+                        totalErrors += syllableCount;
+                        totalTypedSyllables += syllableCount;
                     }
-                }
+                });
             });
 
-            const totalMissed = stats.totalChars - totalTyped;
+            const totalMissed = stats.totalChars - totalTypedSyllables;
             const accuracy = stats.totalChars > 0 ? 
                 ((totalCorrect / stats.totalChars) * 100).toFixed(1) : 0;
             const speed = stats.elapsedTime > 0 ? 
-                Math.round((totalTyped / stats.elapsedTime) * 60) : 0;
+                Math.round((totalTypedSyllables / stats.elapsedTime) * 60) : 0;
 
             const timeText = document.getElementById('timeDisplay').textContent;
 
             document.getElementById('resultStats').innerHTML = 
                 '<div class="result-stat"><span>總用時：</span><strong>' + timeText + '</strong></div>' +
-                '<div class="result-stat"><span>總字數：</span><strong>' + stats.totalChars + ' 字</strong></div>' +
-                '<div class="result-stat"><span>已打字數：</span><strong>' + totalTyped + ' 字</strong></div>' +
-                '<div class="result-stat"><span>正確：</span><strong style="color: #51CF66">' + totalCorrect + ' 字</strong></div>' +
-                '<div class="result-stat"><span>錯誤：</span><strong style="color: #FF6B6B">' + totalErrors + ' 字</strong></div>' +
-                '<div class="result-stat"><span>未打：</span><strong style="color: #FFD93D">' + Math.max(0, totalMissed) + ' 字</strong></div>' +
+                '<div class="result-stat"><span>總音節數：</span><strong>' + stats.totalChars + ' 個</strong></div>' +
+                '<div class="result-stat"><span>已打音節：</span><strong>' + totalTypedSyllables + ' 個</strong></div>' +
+                '<div class="result-stat"><span>正確：</span><strong style="color: #51CF66">' + totalCorrect + ' 個</strong></div>' +
+                '<div class="result-stat"><span>錯誤：</span><strong style="color: #FF6B6B">' + totalErrors + ' 個</strong></div>' +
+                '<div class="result-stat"><span>未打：</span><strong style="color: #FFD93D">' + Math.max(0, totalMissed) + ' 個</strong></div>' +
                 '<div class="result-stat"><span>正確率：</span><strong style="color: #2196F3">' + accuracy + '%</strong></div>' +
-                '<div class="result-stat"><span>平均速度：</span><strong style="color: #A78BFA">' + speed + ' 字/分</strong></div>';
+                '<div class="result-stat"><span>平均速度：</span><strong style="color: #A78BFA">' + speed + ' 音節/分</strong></div>';
 
             document.getElementById('resultModal').classList.add('active');
         }
@@ -1419,6 +1444,40 @@
             document.getElementById('errorDisplay').textContent = '0';
             document.getElementById('missedDisplay').textContent = '0';
             document.getElementById('speedDisplay').textContent = '0';
+        }
+
+        // 計算單個 char-mark 的音節數
+        function getSyllableCountFromMark(mark) {
+            const rubyTextNodes = Array.from(mark.childNodes).filter(node => 
+                node.nodeType === 3 || (node.nodeType === 1 && node.tagName !== 'RT')
+            );
+            const text = rubyTextNodes.map(node => node.textContent).join('');
+            
+            if (inputMode === 'hanji') {
+                // 漢字模式：每個漢字是一個音節
+                return text.replace(/[\s\p{P}]/gu, '').length;
+            } else {
+                // 台羅模式：計算連字符號分隔的音節數
+                const cleanText = text.trim();
+                if (cleanText.length === 0) return 0;
+                
+                // 先替換 -- 為單一分隔符
+                const normalized = cleanText.replace(/--/g, '-');
+                const syllables = normalized.split('-').filter(s => s.length > 0);
+                return syllables.length;
+            }
+        }
+
+        // 計算音節數（從 DOM 元素計算）
+        function countSyllablesFromDOM(containerElement) {
+            const charMarks = containerElement.querySelectorAll('.char-mark');
+            let totalSyllables = 0;
+            
+            charMarks.forEach(mark => {
+                totalSyllables += getSyllableCountFromMark(mark);
+            });
+            
+            return totalSyllables;
         }
 
         // HTML转义
