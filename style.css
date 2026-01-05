@@ -888,3 +888,43 @@ rb {
     font-size: 13px;
   }
 }
+
+/* Footer 樣式 */
+.site-footer {
+  margin-top: 60px;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.footer-link {
+  font-size: 14px;
+}
+
+.footer-link a {
+  /* color: var(--caption-text); */
+  margin: 0px 5px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.footer-link a:hover {
+  color: var(--link-color);
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    margin-top: 40px;
+    padding: 20px 10px;
+  }
+
+  .footer-link {
+    font-size: 13px;
+  }
+}
