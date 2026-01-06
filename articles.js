@@ -163,4 +163,31 @@ Kóng--khì-lâi，學電腦趣味koh心適，sè-hàn ê 記持chiâⁿ-chò �
 大部份ê影印機仔mā會阻止人提銀票來影印，啊機仔是按怎知影彼是銀票leh？
 原來是銀票頂面ê圖內底，有藏一種特別ê圖樣佇內底，簡單講，是圈仔排列做真特定ê形狀，若像星座仝款ê圖形，影印機仔掃著這種圖形，內底ê程式就會跳出來阻止人繼續印落去。`,
   },
+  {
+    id: 10,
+    title: "規工的！",
+    source:
+      "複製文圖書館台文翻譯館 Ho̍k tsè bûn tôo su kuán Tâi bûn huan i̍k kuán",
+    url: "https://www.facebook.com/photo.php?fbid=212649594304191&set=pb.100077577577186.-2207520000&type=3",
+    tags: ["複製文"],
+    type: "mapped",
+    new: true,
+    hanji: `兄弟啊，咱進前應該無熟似啦。
+應該是無冤無仇啦乎？
+啊恁爸踏佇遮好好，
+你硬欲過來共恁爸摸兩下仔
+恁爸啊已經無講話矣，
+你這馬規氣共恁爸的頭挽落來是按怎？
+害恁爸這馬 tann 大漢爾，這馬隨欲去投胎！
+規工的！`,
+    tailo: `Hiann-tī--ah, lán tsìn-tsîng ing-kai bô si̍k-sāi--lah.
+Ìng-kai sī bô-uan-bô-siû--lah--honnh?
+Ah lín-pē ta̍h tī tsia hó hó,
+Lí ngē beh kuè--lâi kā lín-pē bong nn̄g ē á
+lín-pē ah í-king bô kóng-uē--ah,
+lí tsit-má kui-khì kā lín-pē ê thâu bán--lo̍h-lâi sī án-nuá?
+Hāi lín-pē tsit-má tann tuā-hàn niā, tsit-má suî beh khì tâu-thai!
+Kui-kang--ê!
+`,
+  },
 ];
