@@ -1116,12 +1116,15 @@
           (article) => !article.new
         );
 
+        // 對 new 文章按照 id 降序排列（id 較大者在前）
+        const sortedNewArticles = newArticles.sort((a, b) => b.id - a.id);
+
         // 使用當天日期作為 seed 對其他文章進行隨機排序
         const todaySeed = stringToSeed(getTodayDateString());
         const shuffledOtherArticles = shuffleWithSeed(otherArticles, todaySeed);
 
-        // 將 new 文章置頂
-        return [...newArticles, ...shuffledOtherArticles];
+        // 將排序後的 new 文章置頂
+        return [...sortedNewArticles, ...shuffledOtherArticles];
       }
 
       // 顯示文章列表
