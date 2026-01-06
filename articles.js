@@ -88,8 +88,11 @@ Hóo，有影袂䆀！伊有共 cheese  ê 比例減少，BBQ 醬有發揮作用
     url: "https://kiantiong.com/jihing/tasa_typeface_collection_intro/",
     tags: ["字型技術"],
     type: "single",
-    content: `It-puann lán lóng lia̍h-tsún kóng tsò Lô-má-jī jī-hîng kah hàn-jī pí sī tsin kán-tan, in-uī jī-sòo khah tsió. M̄-koh Lô-má-jī beh tsù-ì ê sè-tsiat kî-si̍t put-tsí-á tsē, tshiūnn kerning tō-sī tsi̍t ê tsin hó ê lē.
-Kerning tsit ê su̍t-gí leh kóng jī-hîng siat-kè-su tsiam-tuì lô-má-jī tsi-kan kū-lî ê si-á-geh. Kā jī-hû tsi-kan ê kū-lî tshiâu hōo koh-khah sù-sī tsū-jiân ê kang-hu. Pí-lūn kóng tíng-bīn ê tôo lāi-té thâu 1 tsuā ê "AV" kah "Wa" nn̄g-tsióng tsoo-ha̍p, jī-hîng siat-kè-su ē kā in ê kū-lî tshiâu khah uá--leh. Ba̍k-tsiu khuànn--khí-lâi tsiah bē làng tsi̍t ê phang. Iú-kuan Ing-gí ê kerning kah ian-jī ìn-suat ê li̍k-sú ē-tàng tsham-khó justfont ê bûn-tsiunn.
+    content: `It-puann lán lóng lia̍h-tsún kóng tsò Lô-má-jī jī-hîng kah Hàn-jī pí sī tsin kán-tan, in-uī jī-sòo khah tsió. M̄-koh Lô-má-jī beh tsù-ì ê sè-tsiat kî-si̍t put-tsí-á tsē, tshiūnn kerning tō-sī tsi̍t ê tsin hó ê lē.
+Kerning tsit ê su̍t-gí leh kóng jī-hîng siat-kè-su tsiam-tuì Lô-má-jī tsi-kan kū-lî ê si-á-geh. Kā jī-hû tsi-kan ê kū-lî tshiâu hōo koh-khah sù-sī tsū-jiân ê kang-hu.
+Pí-lūn kóng lán nā-sī tú-tio̍h "AV" kah "Wa" nn̄g-tsióng tsoo-ha̍p, jī-hîng siat-kè-su ē kā in ê kū-lî tshiâu khah uá--leh. Ba̍k-tsiu khuànn--khí-lâi tsiah bē làng tsi̍t ê phang.
+Tâi-gí Lô-má-jī ū 1 kuá Ing-gí khah bē tshut-hiān ê hû-hō tsoo-ha̍p, pí-lūn-kóng ū siann-tiāu hû-hō ê jī-bó, koh ū kah liān-jī hû-hō "-" tsi-kan ê kuan-hē ài tsiàu-kòo. Pe̍h-uē-jī ê phīnn-im hû-hō mā sī tsi̍t ê tsin ti̍k-pia̍t ê kak-sik, in-uī i siá khah kuân.
+Āu-piah nā-sī tsiap piau-tiám hû-hō ia̍h-sī liân-jī hû-hō tō su-iàu tshiâu khah uá--leh, thâu-tsîng tú-tio̍h A mā ài tshiâu, tsiah bē lî siunn hn̄g ia̍h-sī làng tsi̍t ê phang.
     `,
   },
   {
