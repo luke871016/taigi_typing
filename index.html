@@ -4,8 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>台語文拍字練習</title>
+    <!-- 
+      版本號：每次更新時請修改下方所有檔案 URL 中的版本號（v=1.0.0）
+      例如：將 v=1.0.0 改為 v=1.0.1，即可強制瀏覽器重新載入所有資源
+    -->
     <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet" />
-    <link href="./style.css" rel="stylesheet" />
+    <link href="./style.css?v=1.0.0" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
@@ -351,9 +355,10 @@
         </div>
       </div>
     </footer>
-    <script src="./exampleSentences.js"></script>
-    <script src="./tailoToPOJMapping.js"></script>
-    <script src="./articles.js"></script>
+    <!-- 外部 JavaScript 檔案（已加入版本參數以避免快取） -->
+    <script src="./exampleSentences.js?v=1.0.0"></script>
+    <script src="./tailoToPOJMapping.js?v=1.0.0"></script>
+    <script src="./articles.js?v=1.0.1"></script>
     <script>
       // 全局变量
       let hanjiParagraphs = [];
