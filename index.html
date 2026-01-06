@@ -1803,6 +1803,10 @@
             handleCompositionStart
           );
           prepInput.addEventListener("compositionend", handleCompositionEnd);
+          // 禁止貼上
+          prepInput.addEventListener("paste", (e) => {
+            e.preventDefault();
+          });
           prepInput.focus();
         }
       }
@@ -1845,6 +1849,10 @@
             handleCompositionEnd(e);
             // 在輸入法結束時也調整高度
             autoResizeTextarea(input);
+          });
+          // 禁止貼上
+          input.addEventListener("paste", (e) => {
+            e.preventDefault();
           });
         });
 
