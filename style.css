@@ -224,6 +224,12 @@ hr {
   font-size: 22px;
   line-height: 1.5;
   min-height: 60px;
+  /* 避頭點處理 */
+  hanging-punctuation: allow-end;
+  text-indent: 0;
+  word-break: normal;
+  line-break: auto;
+  overflow-wrap: break-word;
 }
 
 ruby {
@@ -253,6 +259,40 @@ rb {
   flex-direction: column-reverse;
   text-align: center;
   vertical-align: bottom;
+}
+
+/* 避頭點處理：防止標點符號出現在行首 */
+.char-mark.punctuation-mark {
+  /* 防止標點符號單獨換行 */
+  white-space: nowrap;
+}
+
+/* 為 ruby 元素中的標點符號也添加避頭點處理 */
+ruby.char-mark.punctuation-mark {
+  /* 防止 ruby 元素單獨換行 */
+  white-space: nowrap;
+}
+
+/* 避頭點輔助元素：在標點符號前添加不可見的零寬度非斷行空格 */
+/* 這個元素不會影響打字判定，因為打字判定只檢查 .char-mark 元素 */
+.kinsoku-space {
+  display: inline;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  pointer-events: none;
+  user-select: none;
+  /* 使用零寬度非斷行空格來防止換行 */
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+  /* 確保不影響布局 */
+  vertical-align: baseline;
+  /* 確保內容不可見 */
+  color: transparent;
+  background: transparent;
 }
 
 .char-mark.correct {
@@ -496,7 +536,7 @@ rb {
   position: absolute;
   top: 4px;
   left: 4px;
-  width: calc(50% - 4px);
+  width: calc(33.333% - 4px);
   height: calc(100% - 8px);
   background: var(--link-color);
   border-radius: 3px;
@@ -504,9 +544,14 @@ rb {
   z-index: 1;
 }
 
-/* 當第二個選項被選中時，滑塊移動到右邊 */
+/* 當第二個選項被選中時，滑塊移動到中間 */
 .source-options.switcher-right::before {
-  left: calc(50%);
+  left: calc(33.333%);
+}
+
+/* 當第三個選項被選中時，滑塊移動到最右邊 */
+.source-options.switcher-far-right::before {
+  left: calc(66.666%);
 }
 
 .text-type-selection {
@@ -575,6 +620,216 @@ rb {
 
 .custom-settings {
   margin-bottom: 20px;
+}
+
+.article-selection {
+  margin-bottom: 20px;
+}
+
+.article-intro-text {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: var(--primary-bg);
+  border: 1px solid var(--borders);
+  border-radius: 3px;
+  font-size: 14px;
+  color: var(--caption-text);
+  line-height: 1.6;
+}
+
+.article-intro-text a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.article-intro-text a:hover {
+  text-decoration: underline;
+}
+
+.article-search-section {
+  margin-bottom: 20px;
+}
+
+.article-search-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--borders);
+  border-radius: 3px;
+  font-size: 16px;
+  font-family: inherit;
+  background: white;
+  color: var(--primary-text);
+  margin-bottom: 10px;
+}
+
+.article-search-input:focus {
+  outline: none;
+  border-color: var(--link-color);
+}
+
+.article-filter-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  background: var(--primary-bg);
+  border: 1px solid var(--borders);
+  border-radius: 3px;
+  font-size: 14px;
+  color: var(--caption-text);
+}
+
+.article-filter-info #filterText {
+  flex: 1;
+}
+
+.clear-filter-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  border: 1px solid var(--borders);
+  border-radius: 3px;
+  background: white;
+  color: var(--primary-text);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clear-filter-btn:hover {
+  background: var(--link-color);
+  color: white;
+  border-color: var(--link-color);
+}
+
+.no-articles {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--caption-text);
+  font-size: 16px;
+}
+
+.article-list {
+  display: grid;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.article-card {
+  background: white;
+  border: 1px solid var(--borders);
+  border-radius: 3px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+
+.article-card:hover {
+  border-color: var(--link-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-header {
+  margin-bottom: 12px;
+}
+
+.article-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--secondary-text);
+  margin-bottom: 8px;
+  font-family: GenKiGothicTW;
+}
+
+.article-meta {
+  font-size: 14px;
+  color: var(--caption-text);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.article-source {
+  color: var(--caption-text);
+}
+
+.article-source a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.article-source a:hover {
+  text-decoration: underline;
+}
+
+.article-syllable-count {
+  color: var(--caption-text);
+  font-size: 13px;
+}
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.article-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--primary-bg);
+  border: 1px solid var(--borders);
+  border-radius: 12px;
+  font-size: 12px;
+  color: var(--caption-text);
+}
+
+.clickable-tag {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clickable-tag:hover {
+  background: var(--link-color);
+  color: white;
+  border-color: var(--link-color);
+}
+
+.article-preview {
+  color: var(--primary-text);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  padding: 12px;
+  background: var(--primary-bg);
+  border-radius: 3px;
+}
+
+.preview-hanji {
+  margin-bottom: 8px;
+  color: var(--primary-text);
+}
+
+.preview-tailo {
+  color: var(--caption-text);
+  font-size: 14px;
+}
+
+.article-select-btn {
+  width: auto;
+  padding: 12px 20px;
+  background: var(--link-color);
+  color: white;
+  border: 1px solid var(--link-color);
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.article-select-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .mode-selection {
@@ -926,5 +1181,18 @@ rb {
 
   .footer-link {
     font-size: 13px;
+  }
+
+  .article-card {
+    padding: 15px;
+  }
+
+  .article-title {
+    font-size: 16px;
+  }
+
+  .article-preview {
+    font-size: 14px;
+    padding: 10px;
   }
 }
