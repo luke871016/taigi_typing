@@ -130,4 +130,23 @@ Tâi-gí Lô-má-jī ū 1 kuá Ing-gí khah bē tshut-hiān ê hû-hō tsoo-ha̍
 刣挕捒就好矣。我真正無想欲看阮朋友咧艱苦。
 `,
   },
+  {
+    id: 8,
+    title: "O̍h 電腦真心適",
+    source: "高嘉徽",
+    url: "https://tsbp.tgb.org.tw/2015/12/blog-post_86.html",
+    tags: ["科技學習"],
+    type: "single",
+    new: true,
+    content: `阮爸母chū我sè-hàn ê sî tō 真疼--我，in送我去補習班補心算、作文、英語kap電腦。會kì eh 印象上深--ê tō-sī去電腦補習班補電腦。
+Hit-sî ê 我chiah讀國校5年niâ，而且我自sè-hàn tō tùi電腦真有興趣。我國校5年niâ tō ē 上網頁設計課程。上課ê時我chiok專心，學著chiok chē電腦ê智識kap按怎設計網頁。
+我做出來ê成品竟然hō͘老師o-ló，講我設計liáu chiâⁿ好。會記得hit-sî ê 我hō͘老師講chò-liáu chiok讚，我是歡喜ka̍h!因為 hit-sî 我iáu-koh sè-hàn，só͘-tì 我mā kap pa̍t ê 囡仔kâng-khoán，chiâⁿ 愛sńg。
+利用下課時間sńg電腦 ê game，tng-tong我sńg kah chiok siak-phah ê 時，hō͘ 老師講：「Eh!上課 ah--o͘h!
+mài koh sńg--ah。」Koh hō͘老師liām。
+M̄-koh hit-sî 我iáu-koh 是chi̍t-ê 囡仔niâ，其實愛sńg是chiâⁿ四常 ê 代誌。
+Āu--lâi seng 6 年，我tō選PPT ê 課程上，而且hit-sî學著ê物件竟然影響我kàu讀大學，sīm-chì是出社會。阿爸kap阿母開ê錢chin-chiàⁿ是無浪費。
+其實國中kàu高中，學校mā-sī有電腦課，ah m̄-koh chi̍t 禮拜 chiah 1 節課，實在學無偌濟。我 tī 學校學電腦印象上深--ê，tō-sī tī 我14歲 ê 時，有chi̍t改上PPT ê課，老師kiò阮kau PPT ê 作業，我是hō͘老師 o-ló 上濟--ê。
+老師kā我ê成品展hō͘全班看，講我chò-liáu 偌好tú偌好，老師講ê話對14歲ê我來講，是chi̍t-ê 真大ê鼓勵，mā hō͘ 囡仔時代 ê 我chi̍t chióng khéng-tēng。
+Kóng--khì-lâi，學電腦趣味koh心適，sè-hàn ê 記持chiâⁿ-chò 我心中特別 ê 回憶！`,
+  },
 ];

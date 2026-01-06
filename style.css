@@ -731,12 +731,32 @@ ruby.char-mark.punctuation-mark {
   margin-bottom: 12px;
 }
 
+.article-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
 .article-title {
   font-size: 18px;
   font-weight: bold;
   color: var(--secondary-text);
-  margin-bottom: 8px;
+  margin: 0;
   font-family: GenKiGothicTW;
+}
+
+.article-new-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #769983;
+  color: white;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .article-meta {

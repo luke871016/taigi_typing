@@ -1103,11 +1103,20 @@
           });
         }
 
-        // 使用當天日期作為 seed 進行隨機排序
-        const todaySeed = stringToSeed(getTodayDateString());
-        filteredArticles = shuffleWithSeed(filteredArticles, todaySeed);
+        // 分離 new 文章和其他文章
+        const newArticles = filteredArticles.filter(
+          (article) => article.new === true
+        );
+        const otherArticles = filteredArticles.filter(
+          (article) => !article.new
+        );
 
-        return filteredArticles;
+        // 使用當天日期作為 seed 對其他文章進行隨機排序
+        const todaySeed = stringToSeed(getTodayDateString());
+        const shuffledOtherArticles = shuffleWithSeed(otherArticles, todaySeed);
+
+        // 將 new 文章置頂
+        return [...newArticles, ...shuffledOtherArticles];
       }
 
       // 顯示文章列表
@@ -1204,9 +1213,17 @@
           // 統計音節數
           const syllableCount = countArticleSyllables(article);
 
+          // 處理 new 標記
+          const newBadge = article.new
+            ? '<span class="article-new-badge">new</span>'
+            : "";
+
           articleCard.innerHTML = `
             <div class="article-header">
-              <h4 class="article-title">${escapeHtml(article.title)}</h4>
+              <div class="article-title-row">
+                <h4 class="article-title">${escapeHtml(article.title)}</h4>
+                ${newBadge}
+              </div>
               <div class="article-meta">
                 ${sourceHtml}
                 <span class="article-syllable-count">音節數：${syllableCount}</span>
