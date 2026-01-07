@@ -183,11 +183,30 @@ Kóng--khì-lâi，學電腦趣味koh心適，sè-hàn ê 記持chiâⁿ-chò �
     tailo: `Hiann-tī--ah, lán tsìn-tsîng ing-kai bô si̍k-sāi--lah.
 Ìng-kai sī bô-uan-bô-siû--lah--honnh?
 Ah lín-pē ta̍h tī tsia hó hó,
-Lí ngē beh kuè--lâi kā lín-pē bong nn̄g ē á
+Lí ngē beh kuè--lâi kā lín-pē bong nn̄g-ē-á
 lín-pē ah í-king bô kóng-uē--ah,
 lí tsit-má kui-khì kā lín-pē ê thâu bán--lo̍h-lâi sī án-nuá?
 Hāi lín-pē tsit-má tann tuā-hàn niā, tsit-má suî beh khì tâu-thai!
 Kui-kang--ê!
+`,
+  },
+  {
+    id: 11,
+    title: "NASA太空人",
+    source: "高嘉徽",
+    url: "",
+    tags: ["自然科學"],
+    type: "single",
+    new: true,
+    content: `我自細漢就真kah-ì 看科學類 ê chheh， m̄-koán 是動物--ê 抑是外星球 ê chheh 我 lóng 真愛讀。
+今仔日 beh 講--ê，是有關外星 ê 代誌。自我國中就讀著地球人登入月球 téng，koh 有收集月娘 ê 石頭來做實驗， 看有外星人 ê 存在無。
+地球人對外星是足 hòⁿ-hiân--ê，第1 ê 登陸月娘 ê 是美國人，tī hit-ê 年代，chit 種代誌是稀罕--ê，NASA ê 太空人替人類完成夢想。
+我讀高中一年仔 ê 時，有想 beh 大漢了去美國NASA ê 中心去看māi。
+彼時gín-á-tioh ê 我真正是足想beh 去 NASA--ê。
+M̄-koh 這馬 ê 我看彼時 ê 我，實在有夠天真，he m̄-sī hiah-nī 簡單 ê 代誌。
+Koh 有 chi̍t ê 較 hàm ê 代，就是我有 bat想過去 NASA 做太空人 ê 想法，實在有夠好笑--ê。
+Sui-bóng 大漢了無實現， m̄-koh 學會曉台文，來記錄gín-á 時代對科學 ê 期待，嘛是 chi̍t 層真特別 ê 代誌。
+向望我家己 koh 寫出無 kâng-khoán 自然主題 ê 文章--o͘h!
 `,
   },
 ];
