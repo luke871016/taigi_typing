@@ -141,7 +141,9 @@
             </div>
           </div>
           <div class="article-intro-text">
-            感謝各位作者授權本網站予逐家練習拍字，文章版權歸屬原始來源，若是你願意提供你的作品，歡迎添<a
+            目前攏總收錄
+            <span id="articleCount">0</span>
+            篇文章，感謝各位作者授權本網站予逐家練習拍字，文章版權歸屬原始來源，若是你願意提供你的作品，歡迎添<a
               href="https://forms.gle/3apYPbSQ6gNDSZrs9"
               target="_blank"
               rel="noopener noreferrer"
@@ -358,7 +360,7 @@
     <!-- 外部 JavaScript 檔案（已加入版本參數以避免快取） -->
     <script src="./exampleSentences.js?v=1.0.0"></script>
     <script src="./tailoToPOJMapping.js?v=1.0.0"></script>
-    <script src="./articles.js?v=1.0.5"></script>
+    <script src="./articles.js?v=1.0.6"></script>
     <script>
       // 全局变量
       let hanjiParagraphs = [];
@@ -3162,6 +3164,24 @@
         },
         configurable: true,
       });
+
+      // 更新文章總數顯示
+      function updateArticleCount() {
+        const articleCountElement = document.getElementById("articleCount");
+        if (articleCountElement && typeof articles !== "undefined") {
+          articleCountElement.textContent = articles.length;
+        }
+      }
+
+      // 當所有資源（包括 articles.js）載入完成後更新文章總數
+      if (window.addEventListener) {
+        window.addEventListener("load", updateArticleCount);
+      } else if (window.attachEvent) {
+        window.attachEvent("onload", updateArticleCount);
+      } else {
+        // 如果事件監聽器不可用，直接嘗試更新（適用於 articles.js 同步載入的情況）
+        setTimeout(updateArticleCount, 100);
+      }
     </script>
   </body>
 </html>
