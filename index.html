@@ -379,6 +379,7 @@
       let isComposing = false;
       let isRandomMode = false; // 記錄是否為隨機模式
       let currentRomanizationSystem = "tailo"; // 記錄當前羅馬字系統（tailo 或 poj）
+      let allowPaste = false; // 除錯用：是否允許貼上（預設禁止）
 
       // 教典例句數據已移至 exampleSentences.js 檔案
       // 台羅轉白話字對應表已移至 tailoToPOJMapping.js 檔案
@@ -713,10 +714,36 @@
         });
       }
 
-      // 綜合正規化函數：同時處理 Unicode 和白話字鼻音
+      // 第八調 i 標準化函數：將 ı(U+0131) + ◌̍(U+030D) 統一轉換為 i(U+0069) + ◌̍(U+030D)
+      function normalizeEighthToneI(text) {
+        if (!text) return text;
+        // 使用正則表達式匹配 ı(U+0131) 後面跟著 ◌̍(U+030D) 的情況
+        // 由於是組合字符，需要匹配字素簇（grapheme cluster）
+        // 先將文本分解為字素簇，然後替換
+        const graphemes = splitIntoGraphemes(text);
+        return graphemes
+          .map((grapheme) => {
+            // 檢查是否為 ı(U+0131) + ◌̍(U+030D) 的組合
+            // 檢查第一個字符是否為 ı(U+0131)，且包含 ◌̍(U+030D)
+            if (
+              grapheme.length > 0 &&
+              grapheme.charCodeAt(0) === 0x0131 &&
+              grapheme.includes("\u030D")
+            ) {
+              // 將 ı 替換為 i，保留其他組合字符（包括 ◌̍）
+              return "\u0069" + grapheme.substring(1);
+            }
+            return grapheme;
+          })
+          .join("");
+      }
+
+      // 綜合正規化函數：同時處理 Unicode、白話字鼻音和第八調 i 變體
       function normalizeForComparison(text, isPOJ = false) {
         if (!text) return text;
         let normalized = normalizeUnicode(text);
+        // 處理第八調 i 變體（在所有情況下都需要處理）
+        normalized = normalizeEighthToneI(normalized);
         if (isPOJ) {
           normalized = normalizePOJNasal(normalized);
         }
@@ -1828,9 +1855,11 @@
             handleCompositionStart
           );
           prepInput.addEventListener("compositionend", handleCompositionEnd);
-          // 禁止貼上
+          // 禁止貼上（除錯模式下可解除）
           prepInput.addEventListener("paste", (e) => {
-            e.preventDefault();
+            if (!allowPaste) {
+              e.preventDefault();
+            }
           });
           prepInput.focus();
         }
@@ -1875,9 +1904,11 @@
             // 在輸入法結束時也調整高度
             autoResizeTextarea(input);
           });
-          // 禁止貼上
+          // 禁止貼上（除錯模式下可解除）
           input.addEventListener("paste", (e) => {
-            e.preventDefault();
+            if (!allowPaste) {
+              e.preventDefault();
+            }
           });
         });
 
@@ -1910,6 +1941,7 @@
           let html = "";
           let wordIdx = 0;
           let i = 0;
+          let lastRuby = ""; // 追蹤上一個 ruby 元素的 HTML
 
           while (i < tailoText.length && wordIdx < tailoAnalysis.length) {
             const char = tailoText[i];
@@ -1917,6 +1949,7 @@
             // 處理空格
             if (char === " ") {
               html += " ";
+              lastRuby = ""; // 空格後重置
               i++;
             } else if (isPunctuation(char)) {
               // 檢查這個標點是否對應 tailoAnalysis 中的標點
@@ -1931,20 +1964,36 @@
                 const punctuationClass = item.isPunctuation
                   ? " punctuation-mark"
                   : "";
-                // 在標點符號前添加不可見的輔助元素來防止出現在行首
-                if (item.isPunctuation) {
-                  html += '<span class="kinsoku-space">\u200B</span>';
+
+                // 如果有前一個字符，將它和標點符號包在一起以防止分開
+                if (lastRuby) {
+                  // 移除上一個 ruby 元素，將它和標點符號包在一起
+                  html = html.slice(0, -lastRuby.length);
+                  html +=
+                    '<span class="kinsoku-group" style="white-space: nowrap; display: inline-block;">';
+                  html += lastRuby;
+                  html += '<span class="kinsoku-space">\u2060</span>';
+                  html += '<ruby class="char-mark' + punctuationClass + '">';
+                  html += escapeHtml(hanji);
+                  html += "<rt>" + escapeHtml(item.text) + "</rt>";
+                  html += "</ruby>";
+                  html += "</span>";
+                } else {
+                  // 沒有前一個字符，只添加標點符號
+                  html += '<span class="kinsoku-space">\u2060</span>';
+                  html += '<ruby class="char-mark' + punctuationClass + '">';
+                  html += escapeHtml(hanji);
+                  html += "<rt>" + escapeHtml(item.text) + "</rt>";
+                  html += "</ruby>";
                 }
-                html += '<ruby class="char-mark' + punctuationClass + '">';
-                html += escapeHtml(hanji);
-                html += "<rt>" + escapeHtml(item.text) + "</rt>";
-                html += "</ruby>";
+                lastRuby = ""; // 標點符號後重置
 
                 i += item.text.length;
                 wordIdx++;
               } else {
                 // 不在 tailoAnalysis 中，直接輸出
                 html += char;
+                lastRuby = "";
                 i++;
               }
             } else {
@@ -1956,16 +2005,18 @@
               // 檢查當前位置是否匹配這個詞
               const remaining = tailoText.substring(i);
               if (remaining.startsWith(tailo)) {
-                html += '<ruby class="char-mark">';
-                html += escapeHtml(hanji);
-                html += "<rt>" + escapeHtml(tailo) + "</rt>";
-                html += "</ruby>";
+                lastRuby = '<ruby class="char-mark">';
+                lastRuby += escapeHtml(hanji);
+                lastRuby += "<rt>" + escapeHtml(tailo) + "</rt>";
+                lastRuby += "</ruby>";
+                html += lastRuby;
 
                 i += tailo.length;
                 wordIdx++;
               } else {
                 // 不匹配，跳過當前字符
                 html += char;
+                lastRuby = "";
                 i++;
               }
             }
@@ -1983,6 +2034,7 @@
           let html = "";
           let wordIdx = 0;
           let i = 0;
+          let lastRuby = ""; // 追蹤上一個 ruby 元素的 HTML
 
           while (i < tailoText.length && wordIdx < tailoAnalysis.length) {
             const char = tailoText[i];
@@ -1990,6 +2042,7 @@
             if (char === " ") {
               // 空格直接输出
               html += " ";
+              lastRuby = ""; // 空格後重置
               i++;
             } else {
               const item = tailoAnalysis[wordIdx];
@@ -2003,20 +2056,39 @@
                 const punctuationClass = item.isPunctuation
                   ? " punctuation-mark"
                   : "";
-                // 在標點符號前添加不可見的輔助元素來防止出現在行首
-                if (item.isPunctuation) {
-                  html += '<span class="kinsoku-space">\u200B</span>';
+
+                // 如果有前一個字符，將它和標點符號包在一起以防止分開
+                if (item.isPunctuation && lastRuby) {
+                  // 移除上一個 ruby 元素，將它和標點符號包在一起
+                  html = html.slice(0, -lastRuby.length);
+                  html +=
+                    '<span class="kinsoku-group" style="white-space: nowrap; display: inline-block;">';
+                  html += lastRuby;
+                  html += '<span class="kinsoku-space">\u2060</span>';
+                  html += '<ruby class="char-mark' + punctuationClass + '">';
+                  html += escapeHtml(tailo);
+                  html += "<rt>" + escapeHtml(hanji) + "</rt>";
+                  html += "</ruby>";
+                  html += "</span>";
+                  lastRuby = ""; // 標點符號後重置
+                } else {
+                  // 沒有前一個字符或是非標點符號，正常添加
+                  if (item.isPunctuation) {
+                    html += '<span class="kinsoku-space">\u2060</span>';
+                  }
+                  lastRuby = '<ruby class="char-mark' + punctuationClass + '">';
+                  lastRuby += escapeHtml(tailo);
+                  lastRuby += "<rt>" + escapeHtml(hanji) + "</rt>";
+                  lastRuby += "</ruby>";
+                  html += lastRuby;
                 }
-                html += '<ruby class="char-mark' + punctuationClass + '">';
-                html += escapeHtml(tailo);
-                html += "<rt>" + escapeHtml(hanji) + "</rt>";
-                html += "</ruby>";
 
                 i += tailo.length;
                 wordIdx++;
               } else {
                 // 不匹配，可能是标点紧跟，跳过当前字符
                 html += char;
+                lastRuby = "";
                 i++;
               }
             }
@@ -2036,6 +2108,7 @@
       function createSingleTextMarkup(text) {
         let html = "";
         let i = 0;
+        let lastCharMark = ""; // 追蹤上一個字符的 HTML
 
         while (i < text.length) {
           const char = text[i];
@@ -2043,18 +2116,35 @@
           // 處理空格：直接輸出，不包在 char-mark 中
           if (char === " ") {
             html += " ";
+            lastCharMark = ""; // 空格後重置
             i++;
             continue;
           }
 
           // 處理標點符號：包在 char-mark 中，但標記為標點
           if (isPunctuation(char)) {
-            // 在標點符號前添加不可見的輔助元素來防止出現在行首
-            html += '<span class="kinsoku-space">\u200B</span>';
-            html +=
-              '<span class="char-mark punctuation-mark">' +
-              escapeHtml(char) +
-              "</span>";
+            // 如果有前一個字符，將它和標點符號包在一起以防止分開
+            if (lastCharMark) {
+              // 移除上一個字符的結尾標籤，將它和標點符號包在一起
+              html = html.slice(0, -lastCharMark.length);
+              html +=
+                '<span class="kinsoku-group" style="white-space: nowrap; display: inline-block;">';
+              html += lastCharMark;
+              html += '<span class="kinsoku-space">\u2060</span>';
+              html +=
+                '<span class="char-mark punctuation-mark">' +
+                escapeHtml(char) +
+                "</span>";
+              html += "</span>";
+            } else {
+              // 沒有前一個字符，只添加標點符號（這種情況較少見）
+              html += '<span class="kinsoku-space">\u2060</span>';
+              html +=
+                '<span class="char-mark punctuation-mark">' +
+                escapeHtml(char) +
+                "</span>";
+            }
+            lastCharMark = ""; // 標點符號後重置
             i++;
             continue;
           }
@@ -2063,10 +2153,11 @@
           const hanjiMatch = getNextHanjiChar(text, i);
           if (hanjiMatch) {
             // 是漢字：單個漢字一個 char-mark
-            html +=
+            lastCharMark =
               '<span class="char-mark">' +
               escapeHtml(hanjiMatch.char) +
               "</span>";
+            html += lastCharMark;
             i += hanjiMatch.length;
             continue;
           }
@@ -2079,8 +2170,9 @@
               numberStr += text[i];
               i++;
             }
-            html +=
+            lastCharMark =
               '<span class="char-mark">' + escapeHtml(numberStr) + "</span>";
+            html += lastCharMark;
             continue;
           }
 
@@ -2100,7 +2192,18 @@
 
           // 將羅馬字詞按音節拆分
           if (word.length > 0) {
-            html += createRomanizationMarkup(word);
+            const romanizationHTML = createRomanizationMarkup(word);
+            html += romanizationHTML;
+            // 提取最後一個字符標記作為 lastCharMark
+            // 簡單處理：如果只有一個音節，就記錄它
+            const matches = romanizationHTML.match(
+              /<span class="char-mark">([^<]+)<\/span>/g
+            );
+            if (matches && matches.length > 0) {
+              lastCharMark = matches[matches.length - 1];
+            } else {
+              lastCharMark = "";
+            }
           }
         }
 
@@ -3021,6 +3124,44 @@
         div.textContent = text;
         return div.innerHTML;
       }
+
+      // ========== 除錯用秘技 ==========
+      // 在 console 輸入以下指令來控制貼上功能：
+      //
+      // 啟用貼上：window.enablePaste() 或 window.allowPaste = true
+      // 停用貼上：window.disablePaste() 或 window.allowPaste = false
+      // 查看狀態：window.checkPasteStatus()
+      //
+      window.enablePaste = function () {
+        allowPaste = true;
+        console.log("✅ 貼上功能已啟用（除錯模式）");
+        return allowPaste;
+      };
+
+      window.disablePaste = function () {
+        allowPaste = false;
+        console.log("🚫 貼上功能已停用");
+        return allowPaste;
+      };
+
+      window.checkPasteStatus = function () {
+        console.log(allowPaste ? "✅ 貼上功能：已啟用" : "🚫 貼上功能：已停用");
+        return allowPaste;
+      };
+
+      // 將 allowPaste 變數暴露到 window 物件，方便直接設定
+      Object.defineProperty(window, "allowPaste", {
+        get: function () {
+          return allowPaste;
+        },
+        set: function (value) {
+          allowPaste = value;
+          console.log(
+            value ? "✅ 貼上功能已啟用（除錯模式）" : "🚫 貼上功能已停用"
+          );
+        },
+        configurable: true,
+      });
     </script>
   </body>
 </html>

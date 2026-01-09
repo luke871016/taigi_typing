@@ -225,11 +225,12 @@ hr {
   line-height: 1.5;
   min-height: 60px;
   /* 避頭點處理 */
-  hanging-punctuation: allow-end;
   text-indent: 0;
-  word-break: normal;
   line-break: auto;
-  overflow-wrap: break-word;
+  /* 使用 keep-all 來保持中文詞組不換行，有助於避頭點 */
+  word-break: keep-all;
+  /* 允許在合適的地方換行，但會尊重避頭點規則 */
+  overflow-wrap: anywhere;
 }
 
 ruby {
@@ -262,18 +263,40 @@ rb {
 }
 
 /* 避頭點處理：防止標點符號出現在行首 */
-.char-mark.punctuation-mark {
-  /* 防止標點符號單獨換行 */
-  white-space: nowrap;
+/* 使用 ::before 偽元素在標點符號前插入不可見的詞連接符 */
+.char-mark.punctuation-mark::before {
+  content: "\2060"; /* Word Joiner (U+2060) */
+  font-size: 0;
+  line-height: 0;
+  display: inline;
 }
 
 /* 為 ruby 元素中的標點符號也添加避頭點處理 */
-ruby.char-mark.punctuation-mark {
-  /* 防止 ruby 元素單獨換行 */
-  white-space: nowrap;
+ruby.char-mark.punctuation-mark::before {
+  content: "\2060"; /* Word Joiner (U+2060) */
+  font-size: 0;
+  line-height: 0;
+  display: inline;
 }
 
-/* 避頭點輔助元素：在標點符號前添加不可見的零寬度非斷行空格 */
+/* 確保標點符號和前面的字符不會分開 */
+.char-mark.punctuation-mark {
+  display: inline;
+}
+
+ruby.char-mark.punctuation-mark {
+  display: inline-flex;
+}
+
+/* 避頭點群組：將標點符號和前面的字符包在一起，確保不會分開 */
+.kinsoku-group {
+  white-space: nowrap;
+  display: inline-block;
+  /* 確保不會影響垂直對齊 */
+  vertical-align: baseline;
+}
+
+/* 避頭點輔助元素：在標點符號前添加不可見的詞連接符（Word Joiner, U+2060） */
 /* 這個元素不會影響打字判定，因為打字判定只檢查 .char-mark 元素 */
 .kinsoku-space {
   display: inline;
@@ -284,7 +307,7 @@ ruby.char-mark.punctuation-mark {
   border: 0;
   pointer-events: none;
   user-select: none;
-  /* 使用零寬度非斷行空格來防止換行 */
+  /* 使用詞連接符（U+2060）來防止換行，比零寬度空格更可靠 */
   font-size: 0;
   line-height: 0;
   overflow: hidden;
@@ -293,6 +316,34 @@ ruby.char-mark.punctuation-mark {
   /* 確保內容不可見 */
   color: transparent;
   background: transparent;
+  /* 確保不會斷行 */
+  white-space: nowrap;
+}
+
+/* 關鍵：確保標點符號和前面的字符作為一個整體不換行 */
+/* 使用通用兄弟選擇器來選擇標點符號前的字符 */
+.reference-text
+  .char-mark:not(.punctuation-mark)
+  + .kinsoku-space
+  + .char-mark.punctuation-mark,
+.reference-text
+  .char-mark:not(.punctuation-mark)
+  + .char-mark.punctuation-mark {
+  /* 將標點符號和前面的字符綁定在一起 */
+  display: inline;
+  white-space: nowrap;
+}
+
+/* 對於 ruby 元素也做同樣處理 */
+.reference-text
+  ruby.char-mark:not(.punctuation-mark)
+  + .kinsoku-space
+  + ruby.char-mark.punctuation-mark,
+.reference-text
+  ruby.char-mark:not(.punctuation-mark)
+  + ruby.char-mark.punctuation-mark {
+  display: inline-flex;
+  white-space: nowrap;
 }
 
 .char-mark.correct {
