@@ -222,7 +222,7 @@ Sui-bóng 大漢了無實現， m̄-koh 學會曉台文，來記錄 gín-á 時�
     url: "",
     tags: ["散文"],
     type: "single",
-    new: false,
+    new: true,
     content: `殕殕雺雺 ê 天，透凍冷 ê 東北季風，勼身佇厚厚的棉襀被，喙 sut-sut 叫咧喝寒。
 是 30 度直降到 14 度 ê 緣故？抑是熱怫怫、純潔 ê 心，去掃著假包 ê 褒囉嗦？
 貼底 ê 起毛摺規工坐袂清，用礬嘛是無效，一喙 uî-suh-kih 無顫悶著，兩喙咧？
@@ -244,7 +244,7 @@ Sui-bóng 大漢了無實現， m̄-koh 學會曉台文，來記錄 gín-á 時�
     url: "",
     tags: ["散文"],
     type: "single",
-    new: false,
+    new: true,
     content: `舊曆五月初三，禮拜，出日頭炎熱。
 比武車較野 ê 越野鐵馬騎咧，kī-kuainn-kī-kuáinn 來到湖邊，跤拄仔踢直，好禮仔共拄佇路邊，行入涼亭仔歇喘。
 欄閘倚咧，雙手指頭仔相閂，雙手牚上天伸予懸懸懸，大氣欶，出力吐，連幾若遍閣一遍。
@@ -264,7 +264,7 @@ Sui-bóng 大漢了無實現， m̄-koh 學會曉台文，來記錄 gín-á 時�
     url: "",
     tags: ["散文"],
     type: "single",
-    new: false,
+    new: true,
     content: `霎雨仔 ê tsái 時仔冷冷溼溼，套頭 ê 外套穿咧，貧惰穿球鞋，赤跤就淺拖仔 lom 咧，攑七𥴊仔店 ê 俗仔雨傘，
 落樓欲去食早頓，這時念頭閃出：「敢會予警察盤查(phuân-tsa)？滾耍笑！阮兜 ê 巷仔口呢！」雨傘褫開 ê 聲共念頭彈一下無去。
 一時間跤底冷，姑不將共身軀勼佇這支雨傘跤，無意無意，一步一步伐，寒寒凊凊 ê 巷仔聽會著雨滴佇雨傘頂 ê 聲。
@@ -280,7 +280,7 @@ Sui-bóng 大漢了無實現， m̄-koh 學會曉台文，來記錄 gín-á 時�
     url: "",
     tags: ["散文"],
     type: "single",
-    new: false,
+    new: true,
     content: `歇睏日來郊外的淺山仔行踏一下，享受秋凊的涼風，走揣樹林的祕密。
 爁光焱焱的日頭，頗略仔燒烙；唚微微仔吹的秋風，淡薄仔冷淡。
 𧌄蜅蠐覕咧樹林偷叫幾聲，吱叫尾站的歲月；愛耍的膨鼠踮咧樹頂耍走相逐，舞弄𪜶青春的活力。
@@ -299,7 +299,7 @@ Sui-bóng 大漢了無實現， m̄-koh 學會曉台文，來記錄 gín-á 時�
     url: "",
     tags: ["散文"],
     type: "single",
-    new: false,
+    new: true,
     content: `頂斗佇生冷的、澹 lih-lok 的落雨天來看恁，毋知當時去矣？
 Gàn-gàn 溼溼的感覺佇記持裡猶有，蓋數念！
 Tsín，山櫻花規欉開甲滿滿滿，形體多姿，媠 tài 魔力，唌阮來恁的身邊品評，恁的腹腸是何等的闊！
@@ -316,7 +316,7 @@ Tsín，山櫻花規欉開甲滿滿滿，形體多姿，媠 tài 魔力，唌阮
     url: "",
     tags: ["散文"],
     type: "single",
-    new: false,
+    new: true,
     content: `透早一下到學校教室，欲上夏日樂學第三禮拜的臺語課，隨看著佇洗手槽邊仔的水錦開甲滿滿是閣媠噹噹，
 我都來兩禮拜矣，呔攏無去智覺著𪜶的存在？是我的不是。
 是講，伊佇遐恬恬仔開，恬恬仔媠，袂嬈花袂奢華，本成就佮我無底代。
@@ -336,7 +336,7 @@ Tsín，山櫻花規欉開甲滿滿滿，形體多姿，媠 tài 魔力，唌阮
     url: "",
     tags: ["散文"],
     type: "single",
-    new: false,
+    new: true,
     content: `彼工乒乓拍了，行出來體育館，行落去停車場，beh 行去捷運站。
 因為頂懸 ê 運動場當 teh 造作，行路 ê 人 ài 軁過地下停車場。停車場光線無蓋好，koh ài 注意車輛，我真注神行路。
 雄雄腦裡浮出一个人名，真久無來去 ê 人名。聽著尻脊後有人 teh 叫我，越頭，驚一趒，彼个人名浮出來目睭前。
@@ -382,7 +382,7 @@ Koh 前幾工仔暗頭仔去公園散步，掛拄買 ê 蘋果牌耳機，因為
     url: "",
     tags: ["散文"],
     type: "single",
-    new: false,
+    new: true,
     content: `毋知為啥物，『美麗』甘甜 ê 笑容定定佇頭殼內踅來踅去，無法度拊，嘛無法度趕……。
 
 會記得舊年春天，若(ná)「後母面」ê 氣候予人心情浮浮，為著 1 場演唱會，
@@ -438,7 +438,7 @@ uān-nā 掠龍 uān-nā 輕聲細說問我：『第一次來啊？會不會太�
     url: "",
     tags: ["散文"],
     type: "single",
-    new: false,
+    new: true,
     content: `我有 2 个認養 ê「查某囝」，𪜶 1 个 12 歲，號做 Becca，1 个 10 歲，號做 Baby，2 个個性真無仝，
 Becca 雖罔較濟歲，毋過真活骨，不時 leh 走跳，連鞭伸筋挽頷，連鞭傱來傱去，罕得幾時坐定定；
 Baby 較少年，煞逐不時攏覆(phak)佇窗仔邊看光景，無，就是勼 leh 睏，睏甲 1 圈肚比 Becca 較大！
@@ -476,6 +476,96 @@ Becca 其實號做「白跤」，Baby 號做「白鼻」，2 个攏是傳統台�
 疼惜性命合應該（thiànn-sioh sènn-miā ha̍p ing-kai），
 共生共存傳大愛（kiōng-sing kiōng-tsûn thuân tuā-ài），
 地球和平自然來（tē-kiû hô-pîng tsū-jiân lâi）。
+`,
+  },
+  {
+    id: 21,
+    title: "死亡留予性命的話",
+    source:
+      "温若喬 第11屆臺中文學獎臺語詩組首獎，收錄佇聯合文學雜誌2022年11月號",
+    url: "https://www.instagram.com/p/Ck547aVPgLD/",
+    tags: ["詩"],
+    type: "mapped",
+    new: true,
+    hanji: `死是媠的
+你看日欲死進前
+用血染紅藍色鬱卒的天
+傷感的人同情伊的落沉
+相愛的人佇伊跤尾相唚
+
+死是媠的
+你看月欲死進前
+用十外工沓沓仔共家己消磨
+逐暝規矩仔規矩踮雲邊缺角
+才勻勻仔來發伊新生的光線
+
+死是媠的
+你看海欲死進前
+彼喘氣是愈來愈溫柔
+魚仔一尾一尾攏想厝
+連沙埔嘛醒過來跳舞
+
+死是媠的
+若無人欲死進前
+哪會所有記持攏同齊唱歌
+操煩閣較大嘛細甲像風沙
+愛恨情仇攏化做線香一欉
+`,
+    tailo: `Sí sī suí ê
+lí khuànn ji̍t beh sí tsìn-tsîng
+iōng hueh ní-âng nâ-sik ut-tsut ê thinn
+siong-kám ê lâng tông-tsîng i ê lo̍h-tîm
+siong-ài ê lâng tī i kha-bué sio-tsim
+
+Sí sī suí ê
+Lí khuànn gue̍h beh sí tsìn-tsîng
+iōng tsa̍p guā kang ta̍uh-ta̍uh-á kā ka-kī siau-buâ
+ta̍k mê kui-kí á kui-kí tiàm hûn-pinn khih-kak
+tsiah ûn-ûn-á lâi puh i sin-senn ê kng-suànn
+
+Sí sī suí ê
+lí khuànn hái beh sí tsìn-tsîng
+he tshuán-khuì sī lú lâi lú un-jiû
+hî-á tsi̍t bué tsi̍t bué lóng siūnn-tshù
+liân sua-poo mā tshínn--kuè-lâi thiàu-bú
+
+Sí sī suí ê
+nā-bô lâng beh sí tsìn-tsîng
+ná ē sóo-ū kì-tî lóng tâng-tsê tshiùnn-kua
+tshau-huân koh-khah tuā mā sè kah tshiūnn hong-sua
+ài-hūn-tsîng-siû lóng huà tsuè suànn-hiunn tsi̍t tsâng
+`,
+  },
+  {
+    id: 22,
+    title: "浪鳥集 001",
+    source: "温若喬 摘自《浪鳥集》，九歌出版社(2023)",
+    url: "https://www.books.com.tw/products/0010946717",
+    tags: ["詩"],
+    type: "mapped",
+    new: true,
+    hanji: `熱天的鳥仔流浪，來阮窗前唸歌，隨飛去他方。
+秋日的葉仔徛黃，無歌通唱，一聲怨慼就飄落。
+`,
+    tailo: `Jua̍h-thinn ê tsiáu-á liû-lōng, lâi gún thang-tsîng liām-kua, suî pue khì thann-hong.
+Tshiu-ji̍t ê hio̍h-á khiā-n̂g, bô kua thang tshiùnn, tsi̍t siann uàn-tsheh tiō phiau lo̍h.
+`,
+  },
+  {
+    id: 23,
+    title: "拆箬光 Thiah-ha̍h-kng",
+    source: "温若喬 摘自《日花閃爍》，時報出版 (2026)",
+    url: "https://www.books.com.tw/products/0011039851",
+    tags: ["詩"],
+    type: "mapped",
+    new: true,
+    hanji: `日頭恬恬仔盤過海天相接的水平線
+用幽微的拆箬光
+共烏暗送去後一个暝夜
+`,
+    tailo: `Jı̍t-thâu tiām-tiām-á puânn kuè hái thinn sio-tsiap ê tsuí-pîng-suànn
+iōng iu-bî ê thiah-ha̍h-kng
+kā oo-àm sàng khì āu tsı̍t ê mî-iā
 `,
   },
 ];
