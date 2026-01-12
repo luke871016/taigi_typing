@@ -539,7 +539,7 @@ tshau-huân koh-khah tuā mā sè kah tshiūnn hong-sua
   {
     id: 22,
     title: "浪鳥集 001",
-    source: "温若喬 摘自《浪鳥集》，九歌出版社(2023)",
+    source: "温若喬 摘自《浪鳥集》，九歌出版社（2023）",
     url: "https://www.books.com.tw/products/0010946717",
     tags: ["詩"],
     type: "mapped",
@@ -554,7 +554,7 @@ Tshiu-ji̍t ê hio̍h-á khiā-n̂g, bô kua thang tshiùnn, tsi̍t siann uàn-t
   {
     id: 23,
     title: "拆箬光 Thiah-ha̍h-kng",
-    source: "温若喬 摘自《日花閃爍》，時報出版 (2026)",
+    source: "温若喬 摘自《日花閃爍》，時報出版（2026）",
     url: "https://www.books.com.tw/products/0011039851",
     tags: ["詩"],
     type: "mapped",
