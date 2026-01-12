@@ -487,7 +487,8 @@ Becca 其實號做「白跤」，Baby 號做「白鼻」，2 个攏是傳統台�
     tags: ["詩"],
     type: "mapped",
     new: true,
-    hanji: `死是媠的
+    hanji: `死亡留予性命的話
+死是媠的
 你看日欲死進前
 用血染紅藍色鬱卒的天
 傷感的人同情伊的落沉
@@ -511,7 +512,8 @@ Becca 其實號做「白跤」，Baby 號做「白鼻」，2 个攏是傳統台�
 操煩閣較大嘛細甲像風沙
 愛恨情仇攏化做線香一欉
 `,
-    tailo: `Sí sī suí ê
+    tailo: `Sí-bông lâu hōo sìnn-miā ê uē
+Sí sī suí ê
 lí khuànn ji̍t beh sí tsìn-tsîng
 iōng hueh ní-âng nâ-sik ut-tsut ê thinn
 siong-kám ê lâng tông-tsîng i ê lo̍h-tîm
@@ -559,11 +561,13 @@ Tshiu-ji̍t ê hio̍h-á khiā-n̂g, bô kua thang tshiùnn, tsi̍t siann uàn-t
     tags: ["詩"],
     type: "mapped",
     new: true,
-    hanji: `日頭恬恬仔盤過海天相接的水平線
+    hanji: `拆箬光
+日頭恬恬仔盤過海天相接的水平線
 用幽微的拆箬光
 共烏暗送去後一个暝夜
 `,
-    tailo: `Jı̍t-thâu tiām-tiām-á puânn kuè hái thinn sio-tsiap ê tsuí-pîng-suànn
+    tailo: `Thiah-ha̍h-kng
+Jı̍t-thâu tiām-tiām-á puânn kuè hái thinn sio-tsiap ê tsuí-pîng-suànn
 iōng iu-bî ê thiah-ha̍h-kng
 kā oo-àm sàng khì āu tsı̍t ê mî-iā
 `,
