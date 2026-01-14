@@ -3,7 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>台語文拍字練習</title>
+    <title>
+      台語打字練習 | 臺語打字練習 | 台語文拍字練習 - 免費線上練習工具
+    </title>
+    <meta
+      name="description"
+      content="免費開源的台語打字練習工具，支援台羅、白話字輸入練習。提供隨機例句、自訂文本、文章練習等多種模式，幫助您提升台語打字速度與準確度。適合學習台語文的朋友使用。"
+    />
+    <meta
+      name="keywords"
+      content="台語打字練習,臺語打字練習,台語打字,臺語打字,台語拍字練習,台語文打字,台語輸入練習,台羅打字,白話字打字,台語練習,台語學習,打字練習,typing practice"
+    />
+    <meta name="author" content="Tân Kiàn-tiong" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="台語打字練習 | 臺語打字練習 | 台語文拍字練習"
+    />
+    <meta
+      property="og:description"
+      content="免費開源的台語打字練習工具，支援台羅、白話字輸入練習。提供隨機例句、自訂文本、文章練習等多種模式，幫助您提升台語打字速度與準確度。"
+    />
+    <meta property="og:locale" content="zh_TW" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="台語打字練習 | 臺語打字練習 | 台語文拍字練習"
+    />
+    <meta
+      name="twitter:description"
+      content="免費開源的台語打字練習工具，支援台羅、白話字輸入練習。提供隨機例句、自訂文本、文章練習等多種模式，幫助您提升台語打字速度與準確度。"
+    />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "台語打字練習",
+        "alternateName": ["臺語打字練習", "台語文拍字練習"],
+        "description": "免費開源的台語打字練習工具，支援台羅、白話字輸入練習。提供隨機例句、自訂文本、文章練習等多種模式，幫助您提升台語打字速度與準確度。",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "TWD"
+        },
+        "inLanguage": "zh-TW",
+        "keywords": "台語打字練習,臺語打字練習,台語打字,臺語打字,台語拍字練習,台語文打字,台語輸入練習,台羅打字,白話字打字,台語練習,台語學習,打字練習"
+      }
+    </script>
+
     <!-- 
       版本號：每次更新時請修改下方所有檔案 URL 中的版本號（v=1.0.0）
       例如：將 v=1.0.0 改為 v=1.0.1，即可強制瀏覽器重新載入所有資源
@@ -327,7 +383,7 @@
 
         <div id="typingSections"></div>
 
-        <button class="finish-btn" id="finishBtn">結束練習並查看成績</button>
+        <button class="finish-btn" id="finishBtn">結束練習、看成績</button>
       </div>
 
       <div class="result-modal" id="resultModal">
