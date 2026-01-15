@@ -1181,7 +1181,12 @@ ruby.char-mark.punctuation-mark {
 @media (max-width: 480px) {
   h1 {
     font-size: 30px;
+    margin: 0;
     padding: 12px;
+  }
+
+  .setup-area {
+    padding-top: 5px;
   }
 
   .speed-main {
