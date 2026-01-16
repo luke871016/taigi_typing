@@ -579,7 +579,7 @@ kā oo-àm sàng khì āu tsı̍t ê mî-iā
     url: "https://www.facebook.com/share/p/171xM6eNRM/",
     tags: ["散文"],
     type: "single",
-    new: true,
+    new: false,
     content: `阿媽做查某囡仔的時，捌佇糖廠車濾仔布，嘛捌佇暗學仔教國語（日本時代的國語），
 若像咱這馬的職業婦女，佇彼的時代算真 gâu 的。毋過，若嫁人就愛佇厝裡扞家，袂當閣食頭路矣。
 阿媽頂仔干焦一个大姊，下仔有兩个小弟佮一个小妹，可能是愛鬥飼家，阿媽才會拖甲二十捅歲才嫁翁，
@@ -608,7 +608,7 @@ kā oo-àm sàng khì āu tsı̍t ê mî-iā
     url: "https://www.facebook.com/share/p/1DF1TCoMNG/",
     tags: ["散文"],
     type: "single",
-    new: true,
+    new: false,
     content: `阿媽無愛拜拜
 阿媽兜無祀公媽，嘛無神明桌。年仔節仔，阿媽嘛無咧行廟寺。
 若經過廟寺，阿媽極加雙手合十拜一个爾爾。阿媽捌講伊無愛拜拜，因為伊有一个足迷信的老母。
@@ -633,7 +633,7 @@ kā oo-àm sàng khì āu tsı̍t ê mî-iā
     url: "https://www.facebook.com/share/p/1D5gTdP1fH/",
     tags: ["散文"],
     type: "single",
-    new: true,
+    new: false,
     content: `阿媽兜 - 四周圍環境的變化
 阿公蹛電力公司，定定愛輪調，所以雲林縣、嘉義縣踅一大輾，尾仔才調來嘉義市。1960 年代租一間日本宿舍，佇河溝邊魚市口。
 我捌共魚市進出貨的趨崎當做跙流籠來耍，轉去當然予阿媽修理。我嘛捌徛佇河溝邊的橋頭，看水流看甲戇神去（曷知是咧想啥物大代誌），
@@ -659,7 +659,7 @@ kā oo-àm sàng khì āu tsı̍t ê mî-iā
     url: "https://www.facebook.com/share/p/1DQf4Qqk3R/",
     tags: ["散文"],
     type: "single",
-    new: true,
+    new: false,
     content: `阿媽兜的好食物 - 甜粿
 差不多過年的前幾工，阿媽就會開始攢欲炊粿的物件：烘爐佮柴攢予便，尤其是柴愛攢予夠，才袂斷火；
 大鼎佮籠床猶閣有竹管粿氣，攏洗予清氣，敆予焦；秫米洗好閣愛浸一暗，隔轉工才提去 hőng 挨做米漿。
@@ -684,7 +684,7 @@ Ta̋nn 炊好的甜粿是軟荍荍的，色水若紅糖按呢紅牙紅牙，閣�
     url: "https://sites.google.com/view/ngabun/%E9%A6%96%E9%A0%81",
     tags: ["詩"],
     type: "single",
-    new: true,
+    new: false,
     content: `數念
 沿著牆仔聊聊仔旋
 旋上懸懸的門頂佮厝尾
