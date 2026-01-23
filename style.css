@@ -393,6 +393,13 @@ ruby.char-mark.punctuation-mark {
   border-color: var(--link-color);
 }
 
+.typing-input:disabled {
+  background: #f5f5f5;
+  color: var(--caption-text);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 .typing-input.error {
   border-color: #c44;
 }
@@ -401,17 +408,37 @@ ruby.char-mark.punctuation-mark {
   border-color: var(--link-color);
 }
 
+.finish-buttons-container {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
 .finish-btn {
   background: var(--link-color);
   color: white;
   border-color: var(--link-color);
-  margin-top: 20px;
-  display: block;
-  width: 100%;
+  flex: 1;
 }
 
 .finish-btn:hover {
   opacity: 0.9;
+}
+
+.result-section {
+  background: white;
+  padding: 30px;
+  border-radius: 3px;
+  margin-top: 20px;
+  border: 1px solid var(--borders);
+  text-align: center;
+}
+
+.result-section h2 {
+  color: var(--secondary-text);
+  margin-bottom: 20px;
+  font-weight: normal;
+  font-size: 1.5em;
 }
 
 .result-modal {
@@ -1172,9 +1199,14 @@ ruby.char-mark.punctuation-mark {
     font-size: 12px;
   }
 
+  .finish-buttons-container {
+    flex-direction: column;
+  }
+
   .finish-btn {
     font-size: 16px;
     padding: 12px;
+    width: 100%;
   }
 }
 

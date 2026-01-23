@@ -63,7 +63,7 @@
       例如：將 v=1.0.0 改為 v=1.0.1，即可強制瀏覽器重新載入所有資源
     -->
     <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet" />
-    <link href="./style.css?v=1.0.2" rel="stylesheet" />
+    <link href="./style.css?v=1.0.3" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
@@ -381,13 +381,20 @@
 
         <div id="typingSections"></div>
 
-        <button class="finish-btn" id="finishBtn">結束練習、看成績</button>
-      </div>
+        <div class="finish-buttons-container" id="finishButtonsContainer">
+          <button class="finish-btn" id="finishBtn">結束練習、看成績</button>
+        </div>
 
-      <div class="result-modal" id="resultModal">
-        <div class="result-content">
+        <div class="result-section" id="resultSection" style="display: none;">
           <h2>🎉 練習完成！</h2>
           <div class="result-stats" id="resultStats"></div>
+        </div>
+      </div>
+
+      <div class="result-modal" id="resultModal" style="display: none;">
+        <div class="result-content">
+          <h2>🎉 練習完成！</h2>
+          <div class="result-stats" id="resultStatsOld"></div>
           <button class="close-btn" id="closeBtn">關閉視窗</button>
         </div>
       </div>
@@ -2944,6 +2951,15 @@
           clearInterval(timerInterval);
         }
 
+        // 禁用所有輸入框
+        document.querySelectorAll(".typing-input").forEach((input) => {
+          input.disabled = true;
+        });
+        const prepInput = document.getElementById("prepInput");
+        if (prepInput) {
+          prepInput.disabled = true;
+        }
+
         let totalCorrect = 0;
         let totalErrors = 0;
         let totalTypedSyllables = 0;
@@ -3033,20 +3049,45 @@
 
         htmlContent += "</div>";
 
+        // 顯示結果區域
         document.getElementById("resultStats").innerHTML = htmlContent;
+        document.getElementById("resultSection").style.display = "block";
 
-        document.getElementById("resultModal").classList.add("active");
+        // 替換按鈕為「返回首頁」和「重新練習」
+        const finishButtonsContainer = document.getElementById("finishButtonsContainer");
+        finishButtonsContainer.innerHTML =
+          '<button class="finish-btn" id="backToHomeBtn">練習別个題目</button>' +
+          '<button class="finish-btn" id="restartBtn">重練習</button>';
+
+        // 綁定返回首頁按鈕事件
+        document.getElementById("backToHomeBtn").addEventListener("click", function () {
+          closeResult();
+        });
+
+        // 綁定重新練習按鈕事件
+        document.getElementById("restartBtn").addEventListener("click", function () {
+          restartPractice();
+        });
       }
 
-      // 关闭结果
+      // 关闭结果（返回首頁）
       function closeResult() {
         document.getElementById("resultModal").classList.remove("active");
+        document.getElementById("resultSection").style.display = "none";
 
         document.getElementById("setupArea").style.display = "block";
         document.getElementById("statsBar").classList.remove("active");
         document.getElementById("practiceArea").classList.remove("active");
 
         document.getElementById("typingSections").innerHTML = "";
+
+        // 恢復按鈕
+        const finishButtonsContainer = document.getElementById("finishButtonsContainer");
+        finishButtonsContainer.innerHTML =
+          '<button class="finish-btn" id="finishBtn">結束練習、看成績</button>';
+        document.getElementById("finishBtn").addEventListener("click", function () {
+          finishPractice();
+        });
 
         const prepInput = document.getElementById("prepInput");
         if (prepInput) {
@@ -3079,6 +3120,70 @@
         document.getElementById("errorDisplay").textContent = "0";
         document.getElementById("missedDisplay").textContent = "0";
         document.getElementById("speedDisplay").textContent = "0";
+      }
+
+      // 重新練習（使用相同題目）
+      function restartPractice() {
+        // 隱藏結果區域
+        document.getElementById("resultSection").style.display = "none";
+
+        // 恢復按鈕
+        const finishButtonsContainer = document.getElementById("finishButtonsContainer");
+        finishButtonsContainer.innerHTML =
+          '<button class="finish-btn" id="finishBtn">結束練習、看成績</button>';
+        document.getElementById("finishBtn").addEventListener("click", function () {
+          finishPractice();
+        });
+
+        // 清除所有輸入框的內容和標記
+        document.querySelectorAll(".typing-input").forEach((input) => {
+          input.value = "";
+          input.disabled = false;
+        });
+
+        // 清除所有參考文本的標記
+        document.querySelectorAll(".char-mark").forEach((mark) => {
+          mark.classList.remove("correct", "incorrect");
+        });
+
+        // 清除空格錯誤標記
+        document.querySelectorAll(".space-error").forEach((marker) => {
+          marker.remove();
+        });
+
+        // 重置統計
+        resetStats();
+
+        // 重新啟用準備輸入框
+        const prepInput = document.getElementById("prepInput");
+        if (prepInput) {
+          prepInput.value = "";
+          prepInput.disabled = false;
+          // 重新設置事件監聽器
+          prepInput.removeEventListener("keydown", handlePrepKeyDown);
+          prepInput.removeEventListener(
+            "compositionstart",
+            handleCompositionStart
+          );
+          prepInput.removeEventListener("compositionend", handleCompositionEnd);
+          prepInput.addEventListener("keydown", handlePrepKeyDown);
+          prepInput.addEventListener(
+            "compositionstart",
+            handleCompositionStart
+          );
+          prepInput.addEventListener("compositionend", handleCompositionEnd);
+          // 禁止貼上（除錯模式下可解除）
+          prepInput.addEventListener("paste", (e) => {
+            if (!allowPaste) {
+              e.preventDefault();
+            }
+          });
+          prepInput.focus();
+        }
+
+        // 重置計時器狀態
+        isTypingStarted = false;
+        isComposing = false;
       }
 
       // 計算單個 char-mark 的音節數
