@@ -533,7 +533,7 @@ liân sua-poo mā tshínn--kuè-lâi thiàu-bú
 
 Sí sī suí ê
 nā-bô lâng beh sí tsìn-tsîng
-ná ē sóo-ū kì-tî lóng tâng-ts ê tshiùnn-kua
+ná ē sóo-ū kì-tî lóng tâng-tsê tshiùnn-kua
 tshau-huân koh-khah tuā mā sè kah tshiūnn hong-sua
 ài-hūn-tsîng-siû lóng huà tsuè suànn-hiunn tsi̍t tsâng
 `,

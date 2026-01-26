@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-TW">
   <head>
     <meta charset="UTF-8" />
@@ -385,13 +385,13 @@
           <button class="finish-btn" id="finishBtn">結束練習、看成績</button>
         </div>
 
-        <div class="result-section" id="resultSection" style="display: none;">
+        <div class="result-section" id="resultSection" style="display: none">
           <h2>🎉 練習完成！</h2>
           <div class="result-stats" id="resultStats"></div>
         </div>
       </div>
 
-      <div class="result-modal" id="resultModal" style="display: none;">
+      <div class="result-modal" id="resultModal" style="display: none">
         <div class="result-content">
           <h2>🎉 練習完成！</h2>
           <div class="result-stats" id="resultStatsOld"></div>
@@ -421,7 +421,7 @@
     <!-- 外部 JavaScript 檔案（已加入版本參數以避免快取） -->
     <script src="./exampleSentences.js?v=1.0.0"></script>
     <script src="./tailoToPOJMapping.js?v=1.0.0"></script>
-    <script src="./articles.js?v=1.0.92"></script>
+    <script src="./articles.js?v=1.0.93"></script>
     <script>
       // 全局变量
       let hanjiParagraphs = [];
@@ -841,7 +841,7 @@
       // 檢查是否為漢羅對應模式
       function isHanloMappingMode() {
         const textSource = document.querySelector(
-          'input[name="textSource"]:checked'
+          'input[name="textSource"]:checked',
         )?.value;
         // 隨機例句模式預設為漢羅對應
         if (textSource === "random") {
@@ -849,7 +849,7 @@
         }
         // 自訂文本模式：檢查文本類型選項
         const textType = document.querySelector(
-          'input[name="textType"]:checked'
+          'input[name="textType"]:checked',
         )?.value;
         return textType === "mapped";
       }
@@ -857,19 +857,19 @@
       // 切換文本來源
       function toggleTextSource() {
         const textSource = document.querySelector(
-          'input[name="textSource"]:checked'
+          'input[name="textSource"]:checked',
         ).value;
         const randomSettings = document.getElementById("randomSettings");
         const customSettings = document.getElementById("customSettings");
         const articleSelection = document.getElementById("articleSelection");
         const randomRomanizationSection = document.getElementById(
-          "randomRomanizationSection"
+          "randomRomanizationSection",
         );
         const customRomanizationSection = document.getElementById(
-          "customRomanizationSection"
+          "customRomanizationSection",
         );
         const modeSelectionSection = document.getElementById(
-          "modeSelectionSection"
+          "modeSelectionSection",
         );
 
         const startBtn = document.getElementById("startBtn");
@@ -1181,7 +1181,7 @@
         // 標籤過濾
         if (currentFilterTag) {
           filteredArticles = filteredArticles.filter((article) =>
-            article.tags.includes(currentFilterTag)
+            article.tags.includes(currentFilterTag),
           );
         }
 
@@ -1192,7 +1192,7 @@
               .toLowerCase()
               .includes(searchQuery);
             const tagMatch = article.tags.some((tag) =>
-              tag.toLowerCase().includes(searchQuery)
+              tag.toLowerCase().includes(searchQuery),
             );
             return titleMatch || tagMatch;
           });
@@ -1200,10 +1200,10 @@
 
         // 分離 new 文章和其他文章
         const newArticles = filteredArticles.filter(
-          (article) => article.new === true
+          (article) => article.new === true,
         );
         const otherArticles = filteredArticles.filter(
-          (article) => !article.new
+          (article) => !article.new,
         );
 
         // 對 new 文章按照 id 降序排列（id 較大者在前）
@@ -1259,8 +1259,8 @@
             .map(
               (tag) =>
                 `<span class="article-tag clickable-tag" data-tag="${escapeHtml(
-                  tag
-                )}">${escapeHtml(tag)}</span>`
+                  tag,
+                )}">${escapeHtml(tag)}</span>`,
             )
             .join("");
 
@@ -1268,13 +1268,13 @@
           let sourceHtml = "";
           if (article.url && article.url.trim() !== "") {
             sourceHtml = `<span class="article-source">來源：<a href="${escapeHtml(
-              article.url
+              article.url,
             )}" target="_blank" rel="noopener noreferrer">${escapeHtml(
-              article.source
+              article.source,
             )}</a></span>`;
           } else {
             sourceHtml = `<span class="article-source">來源：${escapeHtml(
-              article.source
+              article.source,
             )}</span>`;
           }
 
@@ -1287,7 +1287,7 @@
             const truncated = truncateMappedText(
               hanjiFirstLine,
               tailoFirstLine,
-              30
+              30,
             );
             previewHtml = `
               <div class="article-preview">
@@ -1301,10 +1301,10 @@
             const contentPreview = truncateBySyllables(
               contentFirstLine,
               30,
-              false
+              false,
             );
             previewHtml = `<div class="article-preview">${escapeHtml(
-              contentPreview
+              contentPreview,
             )}</div>`;
           }
 
@@ -1370,7 +1370,7 @@
           // 漢羅對應文本
           // 切換到自訂文本模式
           const customRadio = document.querySelector(
-            'input[name="textSource"][value="custom"]'
+            'input[name="textSource"][value="custom"]',
           );
           if (customRadio) {
             customRadio.checked = true;
@@ -1378,7 +1378,7 @@
 
           // 選擇漢羅對應文本選項
           const mappedRadio = document.querySelector(
-            'input[name="textType"][value="mapped"]'
+            'input[name="textType"][value="mapped"]',
           );
           if (mappedRadio) {
             mappedRadio.checked = true;
@@ -1397,7 +1397,7 @@
           // 單一文本
           // 切換到自訂文本模式
           const customRadio = document.querySelector(
-            'input[name="textSource"][value="custom"]'
+            'input[name="textSource"][value="custom"]',
           );
           if (customRadio) {
             customRadio.checked = true;
@@ -1405,7 +1405,7 @@
 
           // 選擇單一文本選項
           const singleRadio = document.querySelector(
-            'input[name="textType"][value="single"]'
+            'input[name="textType"][value="single"]',
           );
           if (singleRadio) {
             singleRadio.checked = true;
@@ -1425,12 +1425,12 @@
       // 切換文本類型模式
       function toggleTextType() {
         const textType = document.querySelector(
-          'input[name="textType"]:checked'
+          'input[name="textType"]:checked',
         )?.value;
         const mappedInputs = document.getElementById("mappedInputs");
         const singleInput = document.getElementById("singleInput");
         const modeSelectionSection = document.getElementById(
-          "modeSelectionSection"
+          "modeSelectionSection",
         );
 
         if (textType === "mapped") {
@@ -1505,7 +1505,7 @@
         if (!container) return;
 
         const checkedRadio = document.querySelector(
-          `input[name="${name}"]:checked`
+          `input[name="${name}"]:checked`,
         );
         if (!checkedRadio) return;
 
@@ -1557,7 +1557,7 @@
           radio.addEventListener("change", () => {
             updateSwitcherPosition(
               ".romanization-options",
-              "romanizationSystemRandom"
+              "romanizationSystemRandom",
             );
           });
         });
@@ -1588,7 +1588,7 @@
             "hanji",
           romanizationSystemRandom:
             document.querySelector(
-              'input[name="romanizationSystemRandom"]:checked'
+              'input[name="romanizationSystemRandom"]:checked',
             )?.value || "tailo",
           hanjiText: document.getElementById("hanjiText")?.value || "",
           tailoText: document.getElementById("tailoText")?.value || "",
@@ -1597,7 +1597,7 @@
         try {
           localStorage.setItem(
             "typingPracticeSettings",
-            JSON.stringify(settings)
+            JSON.stringify(settings),
           );
         } catch (e) {
           console.error("無法保存設定到 localStorage:", e);
@@ -1615,7 +1615,7 @@
           // 恢復文本來源
           if (settings.textSource) {
             const textSourceRadio = document.querySelector(
-              `input[name="textSource"][value="${settings.textSource}"]`
+              `input[name="textSource"][value="${settings.textSource}"]`,
             );
             if (textSourceRadio) {
               textSourceRadio.checked = true;
@@ -1640,7 +1640,7 @@
           // 如果 textSource 是 "random"，則強制設置為 "mapped"（隨機模式總是使用漢羅對應）
           if (settings.textSource === "random") {
             const textTypeRadio = document.querySelector(
-              `input[name="textType"][value="mapped"]`
+              `input[name="textType"][value="mapped"]`,
             );
             if (textTypeRadio) {
               textTypeRadio.checked = true;
@@ -1648,7 +1648,7 @@
           } else if (settings.textType) {
             // 只有在自訂文本模式下才恢復 textType
             const textTypeRadio = document.querySelector(
-              `input[name="textType"][value="${settings.textType}"]`
+              `input[name="textType"][value="${settings.textType}"]`,
             );
             if (textTypeRadio) {
               textTypeRadio.checked = true;
@@ -1658,7 +1658,7 @@
           // 恢復練習模式
           if (settings.inputMode) {
             const inputModeRadio = document.querySelector(
-              `input[name="inputMode"][value="${settings.inputMode}"]`
+              `input[name="inputMode"][value="${settings.inputMode}"]`,
             );
             if (inputModeRadio) {
               inputModeRadio.checked = true;
@@ -1668,7 +1668,7 @@
           // 恢復羅馬字系統（隨機模式）
           if (settings.romanizationSystemRandom) {
             const romanizationRadio = document.querySelector(
-              `input[name="romanizationSystemRandom"][value="${settings.romanizationSystemRandom}"]`
+              `input[name="romanizationSystemRandom"][value="${settings.romanizationSystemRandom}"]`,
             );
             if (romanizationRadio) {
               romanizationRadio.checked = true;
@@ -1703,7 +1703,7 @@
           updateSwitcherPosition(".mode-options", "inputMode");
           updateSwitcherPosition(
             ".romanization-options",
-            "romanizationSystemRandom"
+            "romanizationSystemRandom",
           );
         } catch (e) {
           console.error("無法從 localStorage 讀取設定:", e);
@@ -1719,7 +1719,7 @@
       updateSwitcherPosition(".mode-options", "inputMode");
       updateSwitcherPosition(
         ".romanization-options",
-        "romanizationSystemRandom"
+        "romanizationSystemRandom",
       );
 
       // 羅馬字轉換按鈕
@@ -1794,7 +1794,7 @@
         saveSettings();
 
         const textSource = document.querySelector(
-          'input[name="textSource"]:checked'
+          'input[name="textSource"]:checked',
         ).value;
         isRandomMode = textSource === "random"; // 記錄是否為隨機模式
 
@@ -1811,10 +1811,10 @@
         if (isHanloMapping) {
           // 漢羅對應模式：讀取兩個輸入框
           hanjiText = normalizeUnicode(
-            document.getElementById("hanjiText").value.trim()
+            document.getElementById("hanjiText").value.trim(),
           );
           tailoText = normalizeUnicode(
-            document.getElementById("tailoText").value.trim()
+            document.getElementById("tailoText").value.trim(),
           );
 
           if (!hanjiText || !tailoText) {
@@ -1825,7 +1825,7 @@
           // 檢查是否需要轉換為白話字（只有隨機模式需要）
           if (textSource === "random") {
             const romanizationSystem = document.querySelector(
-              'input[name="romanizationSystemRandom"]:checked'
+              'input[name="romanizationSystemRandom"]:checked',
             ).value;
             currentRomanizationSystem = romanizationSystem; // 記錄當前系統
             if (romanizationSystem === "poj") {
@@ -1839,12 +1839,12 @@
           }
 
           inputMode = document.querySelector(
-            'input[name="inputMode"]:checked'
+            'input[name="inputMode"]:checked',
           ).value;
         } else {
           // 單一文本模式：只讀取一個輸入框
           const singleText = normalizeUnicode(
-            document.getElementById("singleText").value.trim()
+            document.getElementById("singleText").value.trim(),
           );
 
           if (!singleText) {
@@ -1909,13 +1909,13 @@
           prepInput.removeEventListener("keydown", handlePrepKeyDown);
           prepInput.removeEventListener(
             "compositionstart",
-            handleCompositionStart
+            handleCompositionStart,
           );
           prepInput.removeEventListener("compositionend", handleCompositionEnd);
           prepInput.addEventListener("keydown", handlePrepKeyDown);
           prepInput.addEventListener(
             "compositionstart",
-            handleCompositionStart
+            handleCompositionStart,
           );
           prepInput.addEventListener("compositionend", handleCompositionEnd);
           // 禁止貼上（除錯模式下可解除）
@@ -2260,7 +2260,7 @@
             // 提取最後一個字符標記作為 lastCharMark
             // 簡單處理：如果只有一個音節，就記錄它
             const matches = romanizationHTML.match(
-              /<span class="char-mark">([^<]+)<\/span>/g
+              /<span class="char-mark">([^<]+)<\/span>/g,
             );
             if (matches && matches.length > 0) {
               lastCharMark = matches[matches.length - 1];
@@ -2308,7 +2308,7 @@
         // 使用正則表達式匹配 CJK 統一漢字各個區塊
         // 包括基本區、擴展A-G、相容漢字等
         return /[\u4E00-\u9FFF\u3400-\u4DBF\u{20000}-\u{2A6DF}\u{2A700}-\u{2B73F}\u{2B740}-\u{2B81F}\u{2B820}-\u{2CEAF}\u{2CEB0}-\u{2EBEF}\u{30000}-\u{3134F}\uF900-\uFAFF\u{2F800}-\u{2FA1F}]/u.test(
-          char
+          char,
         );
       }
 
@@ -2535,7 +2535,7 @@
           } else {
             // 检查当前位置是否有特殊段落（数字或台罗混写）
             const specialAtPos = specialSegments.find(
-              (s) => s.start === charIndex
+              (s) => s.start === charIndex,
             );
 
             if (specialAtPos) {
@@ -2729,7 +2729,7 @@
             const rubyTextNodes = Array.from(mark.childNodes).filter(
               (node) =>
                 node.nodeType === 3 ||
-                (node.nodeType === 1 && node.tagName !== "RT")
+                (node.nodeType === 1 && node.tagName !== "RT"),
             );
             const rubyText = rubyTextNodes
               .map((node) => node.textContent)
@@ -2744,18 +2744,18 @@
               const prevRubyTextNodes = Array.from(prevMark.childNodes).filter(
                 (node) =>
                   node.nodeType === 3 ||
-                  (node.nodeType === 1 && node.tagName !== "RT")
+                  (node.nodeType === 1 && node.tagName !== "RT"),
               );
               const prevRubyText = prevRubyTextNodes
                 .map((node) => node.textContent)
                 .join("");
               const prevIsRomanization =
                 /^[a-zA-Zāáàăâǎēéèêěīíìĭǐōóòŏôǒūúùŭǔǖǘǚǜḿńňñṁṅṇṉⁿ-]+$/.test(
-                  prevRubyText
+                  prevRubyText,
                 );
               const currentIsRomanization =
                 /^[a-zA-Zāáàăâǎēéèêěīíìĭǐōóòŏôǒūúùŭǔǖǘǚǜḿńňñṁṅṇṉⁿ-]+$/.test(
-                  rubyText
+                  rubyText,
                 );
 
               // 如果前一個和當前都是羅馬字，必須有空格
@@ -2809,7 +2809,7 @@
             const rubyTextNodes = Array.from(mark.childNodes).filter(
               (node) =>
                 node.nodeType === 3 ||
-                (node.nodeType === 1 && node.tagName !== "RT")
+                (node.nodeType === 1 && node.tagName !== "RT"),
             );
             const rubyText = rubyTextNodes
               .map((node) => node.textContent)
@@ -2850,7 +2850,7 @@
       function updateStats(referenceText, typedText, paragraphIndex) {
         // 計算當前段落的正確和錯誤音節數
         const refTextElement = document.getElementById(
-          "refText" + paragraphIndex
+          "refText" + paragraphIndex,
         );
         const charMarks = refTextElement.querySelectorAll(".char-mark");
 
@@ -2889,12 +2889,12 @@
         document.getElementById("errorDisplay").textContent = errors;
         document.getElementById("missedDisplay").textContent = Math.max(
           0,
-          missed
+          missed,
         );
 
         if (stats.elapsedTime > 0) {
           const speed = Math.round(
-            (totalTypedSyllables / stats.elapsedTime) * 60
+            (totalTypedSyllables / stats.elapsedTime) * 60,
           );
           document.getElementById("speedDisplay").textContent = speed;
         }
@@ -3054,20 +3054,26 @@
         document.getElementById("resultSection").style.display = "block";
 
         // 替換按鈕為「返回首頁」和「重新練習」
-        const finishButtonsContainer = document.getElementById("finishButtonsContainer");
+        const finishButtonsContainer = document.getElementById(
+          "finishButtonsContainer",
+        );
         finishButtonsContainer.innerHTML =
           '<button class="finish-btn" id="backToHomeBtn">練習別个題目</button>' +
           '<button class="finish-btn" id="restartBtn">重練習</button>';
 
         // 綁定返回首頁按鈕事件
-        document.getElementById("backToHomeBtn").addEventListener("click", function () {
-          closeResult();
-        });
+        document
+          .getElementById("backToHomeBtn")
+          .addEventListener("click", function () {
+            closeResult();
+          });
 
         // 綁定重新練習按鈕事件
-        document.getElementById("restartBtn").addEventListener("click", function () {
-          restartPractice();
-        });
+        document
+          .getElementById("restartBtn")
+          .addEventListener("click", function () {
+            restartPractice();
+          });
       }
 
       // 关闭结果（返回首頁）
@@ -3082,12 +3088,16 @@
         document.getElementById("typingSections").innerHTML = "";
 
         // 恢復按鈕
-        const finishButtonsContainer = document.getElementById("finishButtonsContainer");
+        const finishButtonsContainer = document.getElementById(
+          "finishButtonsContainer",
+        );
         finishButtonsContainer.innerHTML =
           '<button class="finish-btn" id="finishBtn">結束練習、看成績</button>';
-        document.getElementById("finishBtn").addEventListener("click", function () {
-          finishPractice();
-        });
+        document
+          .getElementById("finishBtn")
+          .addEventListener("click", function () {
+            finishPractice();
+          });
 
         const prepInput = document.getElementById("prepInput");
         if (prepInput) {
@@ -3128,12 +3138,16 @@
         document.getElementById("resultSection").style.display = "none";
 
         // 恢復按鈕
-        const finishButtonsContainer = document.getElementById("finishButtonsContainer");
+        const finishButtonsContainer = document.getElementById(
+          "finishButtonsContainer",
+        );
         finishButtonsContainer.innerHTML =
           '<button class="finish-btn" id="finishBtn">結束練習、看成績</button>';
-        document.getElementById("finishBtn").addEventListener("click", function () {
-          finishPractice();
-        });
+        document
+          .getElementById("finishBtn")
+          .addEventListener("click", function () {
+            finishPractice();
+          });
 
         // 清除所有輸入框的內容和標記
         document.querySelectorAll(".typing-input").forEach((input) => {
@@ -3163,13 +3177,13 @@
           prepInput.removeEventListener("keydown", handlePrepKeyDown);
           prepInput.removeEventListener(
             "compositionstart",
-            handleCompositionStart
+            handleCompositionStart,
           );
           prepInput.removeEventListener("compositionend", handleCompositionEnd);
           prepInput.addEventListener("keydown", handlePrepKeyDown);
           prepInput.addEventListener(
             "compositionstart",
-            handleCompositionStart
+            handleCompositionStart,
           );
           prepInput.addEventListener("compositionend", handleCompositionEnd);
           // 禁止貼上（除錯模式下可解除）
@@ -3191,7 +3205,7 @@
         const rubyTextNodes = Array.from(mark.childNodes).filter(
           (node) =>
             node.nodeType === 3 ||
-            (node.nodeType === 1 && node.tagName !== "RT")
+            (node.nodeType === 1 && node.tagName !== "RT"),
         );
         const text = rubyTextNodes.map((node) => node.textContent).join("");
 
@@ -3318,7 +3332,7 @@
         set: function (value) {
           allowPaste = value;
           console.log(
-            value ? "✅ 貼上功能已啟用（除錯模式）" : "🚫 貼上功能已停用"
+            value ? "✅ 貼上功能已啟用（除錯模式）" : "🚫 貼上功能已停用",
           );
         },
         configurable: true,
