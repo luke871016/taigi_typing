@@ -63,7 +63,7 @@
       例如：將 v=1.0.0 改為 v=1.0.1，即可強制瀏覽器重新載入所有資源
     -->
     <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet" />
-    <link href="./style.css?v=1.0.3" rel="stylesheet" />
+    <link href="./style.css?v=1.0.4" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
@@ -419,9 +419,9 @@
       </div>
     </footer>
     <!-- 外部 JavaScript 檔案（已加入版本參數以避免快取） -->
-    <script src="./exampleSentences.js?v=1.0.0"></script>
+    <script src="./exampleSentences.js?v=1.0.1"></script>
     <script src="./tailoToPOJMapping.js?v=1.0.0"></script>
-    <script src="./articles.js?v=1.1.1"></script>
+    <script src="./articles.js?v=1.1.2"></script>
     <script>
       // 全局变量
       let hanjiParagraphs = [];
@@ -443,6 +443,7 @@
       let isRandomMode = false; // 記錄是否為隨機模式
       let currentRomanizationSystem = "tailo"; // 記錄當前羅馬字系統（tailo 或 poj）
       let allowPaste = false; // 除錯用：是否允許貼上（預設禁止）
+      let currentRandomSentences = []; // 記錄當前隨機例句（包含音檔）
 
       // 教典例句數據已移至 exampleSentences.js 檔案
       // 台羅轉白話字對應表已移至 tailoToPOJMapping.js 檔案
@@ -801,10 +802,17 @@
           .join("");
       }
 
-      // 綜合正規化函數：同時處理 Unicode、白話字鼻音和第八調 i 變體
+      // 標點符號正規化：將不同形式的引號統一
+      function normalizePunctuation(text) {
+        if (!text) return text;
+        return text.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
+      }
+
+      // 綜合正規化函數：同時處理 Unicode、標點、白話字鼻音和第八調 i 變體
       function normalizeForComparison(text, isPOJ = false) {
         if (!text) return text;
         let normalized = normalizeUnicode(text);
+        normalized = normalizePunctuation(normalized);
         // 處理第八調 i 變體（在所有情況下都需要處理）
         normalized = normalizeEighthToneI(normalized);
         if (isPOJ) {
@@ -834,8 +842,19 @@
           currentSeed = randomSeed;
         }
 
-        const shuffled = shuffleWithSeed(exampleSentences, seed);
-        return shuffled.slice(0, Math.min(count, exampleSentences.length));
+        // `exampleSentences` 的資料結構可能是：外層陣列（多筆詞條）-> 每筆詞條是一個陣列（多個例句物件）
+        // 所以先攤平成「單一例句物件」陣列，避免把陣列當物件去讀 `hanji/tailo/audio_url`
+        const allSentences = [];
+        for (const entry of exampleSentences) {
+          if (Array.isArray(entry)) {
+            allSentences.push(...entry);
+          } else {
+            allSentences.push(entry);
+          }
+        }
+
+        const shuffled = shuffleWithSeed(allSentences, seed);
+        return shuffled.slice(0, Math.min(count, allSentences.length));
       }
 
       // 檢查是否為漢羅對應模式
@@ -1779,6 +1798,7 @@
           parseInt(document.getElementById("randomCount").value) || 5;
         const seedInput = document.getElementById("seedInput").value;
         const sentences = getRandomSentences(count, seedInput);
+        currentRandomSentences = sentences;
 
         // 正規化文本以確保 Unicode 一致性
         const hanjiLines = sentences.map((s) => normalizeUnicode(s.hanji));
@@ -1797,6 +1817,9 @@
           'input[name="textSource"]:checked',
         ).value;
         isRandomMode = textSource === "random"; // 記錄是否為隨機模式
+        if (!isRandomMode) {
+          currentRandomSentences = [];
+        }
 
         // 如果是隨機例句模式，先載入例句
         if (textSource === "random") {
@@ -1816,6 +1839,17 @@
           tailoText = normalizeUnicode(
             document.getElementById("tailoText").value.trim(),
           );
+
+          // 保險：隨機模式若遇到狀態不同步導致文本為空，強制重載一次
+          if (textSource === "random" && (!hanjiText || !tailoText)) {
+            loadRandomSentences();
+            hanjiText = normalizeUnicode(
+              document.getElementById("hanjiText").value.trim(),
+            );
+            tailoText = normalizeUnicode(
+              document.getElementById("tailoText").value.trim(),
+            );
+          }
 
           if (!hanjiText || !tailoText) {
             alert("請輸入練習文本！");
@@ -1938,8 +1972,10 @@
           section.className = "typing-section";
 
           const refHTML = createRubyText(index);
+          const audioControlsHTML = createSentenceAudioControls(index);
 
           section.innerHTML =
+            audioControlsHTML +
             '<div class="reference-text" id="refText' +
             index +
             '">' +
@@ -1980,6 +2016,39 @@
         container.querySelectorAll(".reference-text").forEach((refText) => {
           stats.totalChars += countSyllablesFromDOM(refText);
         });
+      }
+
+      // 建立隨機例句音檔播放控制（只有隨機模式會顯示）
+      function createSentenceAudioControls(index) {
+        if (!isRandomMode || !currentRandomSentences[index]) {
+          return "";
+        }
+
+        const sentence = currentRandomSentences[index];
+        const audioUrl = sentence.audio_url;
+        const dicUrl = sentence.dic_url;
+        if (!audioUrl && !dicUrl) {
+          return "";
+        }
+
+        let controlsHTML = '<div class="sentence-audio-controls">';
+        if (audioUrl) {
+          controlsHTML +=
+            '<button type="button" class="sentence-audio-btn" data-audio-url="' +
+            escapeHtml(audioUrl) +
+            '" aria-label="播放發音" title="播放發音"></button>';
+        }
+
+        if (dicUrl) {
+          controlsHTML +=
+            '<a class="sentence-dic-btn" href="' +
+            escapeHtml(dicUrl) +
+            '" target="_blank" rel="noopener noreferrer" aria-label="開啟詞典來源" title="開啟詞典來源"></a>';
+        }
+
+        controlsHTML += "</div>";
+
+        return controlsHTML;
       }
 
       // 创建Ruby标注
@@ -2501,6 +2570,13 @@
       }
 
       // 智能切分汉字
+      function normalizeRomanForMatch(text) {
+        return (text || "")
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/\p{M}/gu, "");
+      }
+
       function smartSegmentHanji(hanjiText, tailoAnalysis) {
         hanjiText = hanjiText.replace(/\s+/g, "");
 
@@ -2578,11 +2654,30 @@
             } else {
               // 正常处理：根据音节数分配漢字
               const syllableCount = item.syllables;
-              const segment = chars
-                .slice(charIndex, charIndex + syllableCount)
-                .join("");
+              let segmentEnd = charIndex + syllableCount;
+
+              // 若本次音節切分會切進「漢羅混寫」段落，則把整段混寫一併納入。
+              // 例如：清氣tam-tam / tshing-khì-tam-tam，應視為同一判讀單位。
+              const mixedSegment = specialSegments.find(
+                (s) =>
+                  s.type === "tailo" &&
+                  s.start >= charIndex &&
+                  s.start < segmentEnd,
+              );
+
+              if (mixedSegment) {
+                const normalizedTailo = normalizeRomanForMatch(item.text);
+                const normalizedMixed = normalizeRomanForMatch(
+                  mixedSegment.text,
+                );
+                if (normalizedTailo.endsWith(normalizedMixed)) {
+                  segmentEnd = Math.max(segmentEnd, mixedSegment.end);
+                }
+              }
+
+              const segment = chars.slice(charIndex, segmentEnd).join("");
               segments.push(segment);
-              charIndex += syllableCount;
+              charIndex = segmentEnd;
               tailoIndex++;
             }
           }
@@ -3051,7 +3146,11 @@
 
         // 顯示結果區域
         document.getElementById("resultStats").innerHTML = htmlContent;
-        document.getElementById("resultSection").style.display = "block";
+        const resultSection = document.getElementById("resultSection");
+        resultSection.style.display = "block";
+        requestAnimationFrame(() => {
+          resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
 
         // 替換按鈕為「返回首頁」和「重新練習」
         const finishButtonsContainer = document.getElementById(
@@ -3199,6 +3298,83 @@
         isTypingStarted = false;
         isComposing = false;
       }
+
+      // 綁定每題音檔播放按鈕
+      document.addEventListener("click", (e) => {
+        const audioBtn = e.target.closest(".sentence-audio-btn");
+        if (!audioBtn) {
+          return;
+        }
+
+        const audioUrl = audioBtn.dataset.audioUrl;
+        if (!audioUrl) {
+          return;
+        }
+
+        const section = audioBtn.closest(".typing-section");
+        if (!section) {
+          return;
+        }
+
+        const existingAudio = section.querySelector("audio.sentence-audio");
+        const existingPlaying = existingAudio && !existingAudio.paused;
+
+        // 同一題按鈕再次點擊時，切換播放/暫停
+        if (existingPlaying) {
+          existingAudio.pause();
+          audioBtn.classList.remove("is-playing");
+          audioBtn.setAttribute("aria-label", "播放發音");
+          audioBtn.setAttribute("title", "播放發音");
+          return;
+        }
+
+        // 先停止其他題目的音檔，避免重疊播放
+        document.querySelectorAll("audio.sentence-audio").forEach((audioEl) => {
+          audioEl.pause();
+          const ownerSection = audioEl.closest(".typing-section");
+          if (!ownerSection) return;
+          const ownerBtn = ownerSection.querySelector(".sentence-audio-btn");
+          if (ownerBtn) {
+            ownerBtn.classList.remove("is-playing");
+            ownerBtn.setAttribute("aria-label", "播放發音");
+            ownerBtn.setAttribute("title", "播放發音");
+          }
+        });
+
+        const audioEl = existingAudio || new Audio(audioUrl);
+        if (!existingAudio) {
+          audioEl.classList.add("sentence-audio");
+          section.appendChild(audioEl);
+        } else if (audioEl.src !== audioUrl) {
+          audioEl.src = audioUrl;
+        }
+
+        audioEl.currentTime = 0;
+        audioBtn.classList.add("is-playing");
+        audioBtn.setAttribute("aria-label", "暫停發音");
+        audioBtn.setAttribute("title", "暫停發音");
+        audioEl
+          .play()
+          .then(() => {
+            // 播放成功，不需額外處理
+          })
+          .catch(() => {
+            audioBtn.classList.remove("is-playing");
+            audioBtn.setAttribute("aria-label", "播放發音");
+            audioBtn.setAttribute("title", "播放發音");
+          });
+
+        audioEl.onended = () => {
+          audioBtn.classList.remove("is-playing");
+          audioBtn.setAttribute("aria-label", "播放發音");
+          audioBtn.setAttribute("title", "播放發音");
+        };
+        audioEl.onpause = () => {
+          audioBtn.classList.remove("is-playing");
+          audioBtn.setAttribute("aria-label", "播放發音");
+          audioBtn.setAttribute("title", "播放發音");
+        };
+      });
 
       // 計算單個 char-mark 的音節數
       function getSyllableCountFromMark(mark) {

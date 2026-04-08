@@ -215,6 +215,82 @@ hr {
   margin-bottom: 20px;
 }
 
+.sentence-audio-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.sentence-audio-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid #5c8273;
+  border-radius: 999px;
+  background: white;
+  color: #5c8273;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sentence-audio-btn::before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 11px solid currentColor;
+  margin-left: 2px;
+}
+
+.sentence-audio-btn.is-playing::before {
+  width: 10px;
+  height: 12px;
+  border: 0;
+  margin-left: 0;
+  background: linear-gradient(
+    to right,
+    currentColor 0 3px,
+    transparent 3px 7px,
+    currentColor 7px 10px
+  );
+}
+
+.sentence-audio-btn:hover {
+  background: #edf3f0;
+  color: #5c8273;
+  border-color: #5c8273;
+}
+
+.sentence-dic-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #5c8273;
+  border-radius: 999px;
+  background: white;
+  color: #5c8273;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.sentence-dic-btn::before {
+  content: "📖";
+  font-size: 14px;
+  line-height: 1;
+}
+
+.sentence-dic-btn:hover {
+  background: #edf3f0;
+  color: #5c8273;
+  border-color: #5c8273;
+}
+
 .reference-text {
   /* background: white; */
   padding: 15px;
