@@ -828,7 +828,7 @@ Tsit-má lán Tâi-uân ê hîm kui-sin-khu lóng sī oo--ê, kan-na hing-tsîng
     type: "mapped",
     new: true,
     hanji: `古早古早，虎、貓、狗攏蹛佇深山林內，𪜶三个袂輸是換帖的，不時攏做伙佇樹林內賴賴趖。彼陣貓會曉展威，袂曉收血。也就是講貓若拄著會威脅伊性命的動物，伊尻脊骿會弓起來，規身軀的毛會聳起來，予家己看著較大隻，來嚇驚對手，予對手毋敢傷害伊。不而過伊若掠著細隻動物，共人拆食落腹的時，予伊食去的動物血會烏白濺，共伊的身軀沐甲專血。虎因為會曉收血，伊咧食其他動物的時就攏食甲清氣tam-tam，袂穢甲四界攏血。
-貓足欣羨虎收血的本等，足想欲學這步。有一工伊就共虎講：「虎兄，你收血的工夫實在有夠𠢕，我足想欲佮你學。你敢會當教我咧？」
+貓足欣羨虎收血的工夫，足想欲學這步。有一工伊就共虎講：「虎兄，你收血的工夫實在有夠𠢕，我足想欲佮你學。你敢會當教我咧？」
 虎講：「歹勢啦，這是祖傳的本事，袂使凊彩傳予外人。」
 貓聽了講：「咱好甲若兄弟咧，你哪會共我當做外人。無按呢啦，你先教我收血。我學會曉了後，就來教你展威。你看啥款？」
 虎想一睏才講：「展威對我來講無效，我看猶是莫相教啦！」
@@ -844,9 +844,9 @@ Tsit-má lán Tâi-uân ê hîm kui-sin-khu lóng sī oo--ê, kan-na hing-tsîng
 因為𪜶攏去得失著虎，毋敢閣蹛佇山林內，就落山綴人生活，予人來保護𪜶。也因為按呢，狗到今猶足慼貓，不時攏咧佮貓冤袂煞。
 `,
     tailo: `Kóo-tsá-kóo-tsá, hóo, niau, káu lóng tuà tī tshim-suann-nâ-lāi, in sann ê bē-su sī uānn-thiap--ê, put-sî lóng tsò-hué tī tshiū-nâ-lāi luā-luā-sô. Hit-tsūn niau ē-hiáu tián-ui, bē-hiáu siu-hueh. Iā tō sī kóng niau nā tú-tio̍h ē ui-hia̍p i sènn-miā ê tōng-bu̍t, i kha-tsiah-phiann ē king--khí-âi, kui-sin-khu ê moo ē tshàng--khí-lâi, hōo ka-kī khuànn tio̍h khah tuā tsiah, lâi heh-kiann tuì-tshiú, hōo tuì-tshiú m̄ kánn siong-hāi--i. Put-jî-kò i nā lia̍h-tio̍h sè tsiah tōng-bu̍t, kā lâng thiah-tsia̍h-lo̍h-pak ê sî, hōo i tsia̍h-khì ê tōng-bu̍t hueh ē oo-pe̍h tsuānn, kā i ê sin-khu bak kah tsuan hueh. Hóo in-uī ē-hiáu siu-hueh, i teh tsia̍h kî-thann tōng-bu̍t ê sî tō lóng tsia̍h kah tshing-khì-tam-tam, bē uè kah sì-kè lóng hueh.
-Niau tsiok him-siān hóo siu-hueh ê kang-hu, tsiok siūnn-beh o̍h tsit pōo. Ū tsi̍t kang i tō kā hóo kóng: “Hóo-hiann, lí siu-hueh ê kang-hu si̍t-tsāi ū-kàu gâu, guá tsiok siūnn-beh kah lí oh. Lí kám ē-tàng kà guá--leh?”
-Hóo kóng: “Pháinn-sè--lah, tse sī tóo-thuân ê pún-sū, bē-sái tshìn-tshái thuân hōo guā-lâng.”
-Niau thiann-liáu kóng: “Lán hó kah nā hiann-tī--leh, lí ná ē kā guá tóng-tsò guā-lâng. Bô án-ne--lah. Lí sing kà guá siu-hueh, guá o̍h ē-hiáu liáu-āu, tō lâi kà lí lián-ui. Lí khuànn siánn-khuán?”
+Niau tsiok him-siān hóo siu-hueh ê kang-hu, tsiok siūnn-beh o̍h tsit pōo. Ū tsi̍t kang i tō kā hóo kóng: “Hóo-hiann, lí siu-hueh ê kang-hu si̍t-tsāi ū-kàu gâu, guá tsiok siūnn-beh kah lí o̍h. Lí kám ē-tàng kà--guá--leh?”
+Hóo kóng: “Pháinn-sè--lah, tse sī tsóo-thuân ê pún-sū, bē-sái tshìn-tshái thuân hōo guā-lâng.”
+Niau thiann-liáu kóng: “Lán hó kah ná hiann-tī--leh, lí ná ē kā guá tòng-tsò guā-lâng. Bô án-ne--lah. Lí sing kà guá siu-hueh, guá o̍h ē-hiáu liáu-āu, tō lâi kà lí tián-ui. Lí khuànn siánn-khuán?”
 Hóo siūnn tsi̍t-khùn tsiah kóng: “Tián-ui tuì guá lâi kóng bô-hāu, guá khuànn iáu-sī mài sio-kà--lah!”
 Niau koo-tsiânn kui-poo, hóo iáu-sī m̄ tah-ìng. Niau bô i huat, tō siūnn-kóng bô lâi-khì tshuē káu lâi tàu kóng. Bô-tik-khak káu nā thè guá pài-thok--tsi̍t-ē, Hóo tō ē tah-ìng.
 Niau tsáu-khì tshuē káu, iang kàu khì thè i kā hóo kóng-hó-uē, tshiánn hóo kah i sio-kà kang-hu. Káu thiann-liáu kóng: “He sī lín nn̄g ê ê tāi-tsì, kah guá bô-tī-tāi, guá bô siūnn-beh kuán.”
