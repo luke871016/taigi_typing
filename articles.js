@@ -848,15 +848,15 @@ Niau tsiok him-siān hóo siu-hueh ê kang-hu, tsiok siūnn-beh o̍h tsit pōo. 
 Hóo kóng: “Pháinn-sè--lah, tse sī tsóo-thuân ê pún-sū, bē-sái tshìn-tshái thuân hōo guā-lâng.”
 Niau thiann-liáu kóng: “Lán hó kah ná hiann-tī--leh, lí ná ē kā guá tòng-tsò guā-lâng. Bô án-ne--lah. Lí sing kà guá siu-hueh, guá o̍h ē-hiáu liáu-āu, tō lâi kà lí tián-ui. Lí khuànn siánn-khuán?”
 Hóo siūnn tsi̍t-khùn tsiah kóng: “Tián-ui tuì guá lâi kóng bô-hāu, guá khuànn iáu-sī mài sio-kà--lah!”
-Niau koo-tsiânn kui-poo, hóo iáu-sī m̄ tah-ìng. Niau bô i huat, tō siūnn-kóng bô lâi-khì tshuē káu lâi tàu kóng. Bô-tik-khak káu nā thè guá pài-thok--tsi̍t-ē, Hóo tō ē tah-ìng.
+Niau koo-tsiânn kui-poo, hóo iáu-sī m̄ tah-ìng. Niau bô i huat, tō siūnn-kóng bô lâi-khì tshuē káu lâi tàu kóng. Bô-tik-khak káu nā thè guá pài-thok--tsi̍t-ē, hóo tō ē tah-ìng.
 Niau tsáu-khì tshuē káu, iang kàu khì thè i kā hóo kóng-hó-uē, tshiánn hóo kah i sio-kà kang-hu. Káu thiann-liáu kóng: “He sī lín nn̄g ê ê tāi-tsì, kah guá bô-tī-tāi, guá bô siūnn-beh kuán.”
 Niau it-ti̍t koo-tsiânn, káu hōo i tînn kah tòng bē tiâu, tō puê niau khì tshuē hóo. Káu kā hóo kóng: “Lán hiann-tī tàu-tīn hiah kú--ah, lí mā mài hiah tàng-sng. I pài-thok lí kà i pún-sū mā bô kiò lí pe̍h kà. Lí kā kà kah ē-hiáu siu-hueh, i mā ē kà lí tián-ui, kóng--khí-lâi lí mā bô sún-sit. Hó--lah! Lí kà--i--lah! Mài hōo guá tī lín nn̄g ê tiong-kan pháinn tsò-lâng.”
 Hóo thiann káu án-ne kóng, suah pháinn-sè koh the-sî, tō kā káu kóng: “Kin-á-ji̍t sī lí lâi thè i kiû--guá, guá tsiah ē tàm-thâu--ê. Lí nā beh tsò kong-tshin tō ài tsò ē khí, sî kàu niau nā bô tsiàu hoo tsiàu kiânn, guá tō tshuē lí sǹg-siàu!”
 Káu kóng: “Bē--lah! Guá kā lí pó-tsìng, i ē tsiàu iok-sok kiânn.”
 Hóo tō án-ne kā siu-hueh ê mê-kak kóng hōo niau thiann, niau thiann-liáu suî khì tshì-giām khuànn-māi, kó-jiân tsiok ū hāu--ê. Hóo tō kā niau kóng: “Tann uānn lí lâi kà--guá--ah.”
 Siūnn bē kàu niau suah thiàu-tsiūnn tshiū-tíng, kā hóo kóng: “Sit-lé, guá iáu ū tāi-tsì, līng-ji̍t guá tsiah lâi kà--lí.”
-Tsîng hit ji̍t liáu-āu, niau tō lóng sì-kè bih, bô beh lâi kah hóo sio-kìnn. Hóo tshuē bô niau, tō khì tshuē káu, Káu thiann-liáu kám-kak tsiok ì-guā, tō khì tshuē niau. Tsin bô kán-tan tshuē-tio̍h ê sî, niau kìng-jiân kóng: “He sī guá kah hóo ê tāi-tsì, lí bián ke-pô.”
-Hóo tsai-iánn niau m̄ khíng tsun-siú iok-sok, tō pàng-tiau kóng m̄ pàng niau kah káu suah, Káu tsai-iánn liáu-au tsin kiann-hiânn, mā tsiok siūnn-khì, tsū án-ne khuànn-tio̍h niau tō beh kā kā. Niau mā kāng-khuàn, khuànn-tio̍h káu tō siám.
+Tsîng hit ji̍t liáu-āu, niau tō lóng sì-kè bih, bô beh lâi kah hóo sio-kìnn. Hóo tshuē bô niau, tō khì tshuē káu, káu thiann-liáu kám-kak tsiok ì-guā, tō khì tshuē niau. Tsin bô kán-tan tshuē-tio̍h ê sî, niau kìng-jiân kóng: “He sī guá kah hóo ê tāi-tsì, lí bián ke-pô.”
+Hóo tsai-iánn niau m̄ khíng tsun-siú iok-sok, tō pàng-tiau kóng m̄ pàng niau kah káu suah, káu tsai-iánn liáu-āu tsin kiann-hiânn, mā tsiok siūnn-khì, tsū án-ne khuànn-tio̍h niau tō beh kā kā. Niau mā kāng-khuàn, khuànn-tio̍h káu tō siám.
 In-uī in lóng khì tik-sit-tio̍h hóo, m̄ kánn koh tuà tī suann-nâ-lāi, tō lo̍h-suann tuè lâng sing-ua̍h, hōo lâng lâi pó-hōo--in. Iā in-uī án-ne, káu kàu-tann iáu tsiok tsheh niau, put-sî lóng teh kah niau uan bē suah.
 `,
   },
