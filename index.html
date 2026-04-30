@@ -361,7 +361,7 @@
         </div>
         <div class="stat-item">
           <span class="stat-label speed-label">速度</span>
-          <span class="stat-value speed-value" id="speedDisplay">0</span>
+          <span class="stat-value speed-value" id="speedDisplay">0.0</span>
         </div>
       </div>
 
@@ -766,15 +766,13 @@
         return text.normalize("NFC");
       }
 
-      // 白話字 hⁿ/ⁿh 標準化函數：將 ⁿh 統一轉換為 hⁿ
-      function normalizePOJNasal(text) {
+      // 羅馬字鼻化尾音 hⁿ／ⁿh 標準化：兩種寫法視為同音，比對時統一成 hⁿ（台羅與白話字皆適用）
+      function normalizeNasalHOrder(text) {
         if (!text) return text;
-        // 將 ⁿh 替換為 hⁿ（不區分大小寫）
         return text.replace(/ⁿh/gi, (match) => {
-          // 保持原本的大小寫
           if (match === "ⁿH") return "Hⁿ";
           if (match === "ⁿh") return "hⁿ";
-          return "hⁿ"; // 預設
+          return "hⁿ";
         });
       }
 
@@ -808,16 +806,13 @@
         return text.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
       }
 
-      // 綜合正規化函數：同時處理 Unicode、標點、白話字鼻音和第八調 i 變體
+      // 綜合正規化函數：同時處理 Unicode、標點、hⁿ／ⁿh、第八調 i 變體
       function normalizeForComparison(text, isPOJ = false) {
         if (!text) return text;
         let normalized = normalizeUnicode(text);
         normalized = normalizePunctuation(normalized);
-        // 處理第八調 i 變體（在所有情況下都需要處理）
         normalized = normalizeEighthToneI(normalized);
-        if (isPOJ) {
-          normalized = normalizePOJNasal(normalized);
-        }
+        normalized = normalizeNasalHOrder(normalized);
         return normalized;
       }
 
@@ -2757,9 +2752,9 @@
         const input = e.target;
         const index = parseInt(input.dataset.index);
         const referenceText = paragraphs[index];
-        // 正規化用戶輸入（包含 Unicode 和白話字 hⁿ/ⁿh）
         const isPOJ = currentRomanizationSystem === "poj";
         const typedText = normalizeForComparison(input.value, isPOJ);
+        const referenceNorm = normalizeForComparison(referenceText, isPOJ);
 
         // 自動調整高度
         autoResizeTextarea(input);
@@ -2774,7 +2769,7 @@
 
         let isCorrect = true;
         for (let i = 0; i < typedText.length; i++) {
-          if (typedText[i] !== referenceText[i]) {
+          if (typedText[i] !== referenceNorm[i]) {
             isCorrect = false;
             break;
           }
@@ -2874,7 +2869,7 @@
             }
 
             if (typedSegment.length === rubyLength) {
-              // 使用綜合正規化進行比較（包含 Unicode 和白話字 hⁿ/ⁿh）
+              // 使用綜合正規化進行比較（Unicode、hⁿ／ⁿh 等）
               const isPOJ = currentRomanizationSystem === "poj";
               if (
                 normalizeForComparison(typedSegment, isPOJ) ===
@@ -2922,7 +2917,7 @@
             const typedSegment = typedText.substr(typedIndex, rubyText.length);
 
             if (typedSegment.length === rubyText.length) {
-              // 使用綜合正規化進行比較（包含 Unicode 和白話字 hⁿ/ⁿh）
+              // 使用綜合正規化進行比較（Unicode、hⁿ／ⁿh 等）
               const isPOJ = currentRomanizationSystem === "poj";
               if (
                 normalizeForComparison(typedSegment, isPOJ) ===
@@ -2988,10 +2983,11 @@
         );
 
         if (stats.elapsedTime > 0) {
-          const speed = Math.round(
-            (totalTypedSyllables / stats.elapsedTime) * 60,
-          );
-          document.getElementById("speedDisplay").textContent = speed;
+          const speedSpm =
+            (totalTypedSyllables / stats.elapsedTime) * 60;
+          document.getElementById("speedDisplay").textContent = (
+            Math.round(speedSpm * 10) / 10
+          ).toFixed(1);
         }
 
         stats.correct = correct;
@@ -2999,20 +2995,32 @@
         stats.missed = Math.max(0, missed);
       }
 
-      // 计时器
+      // 計時器（經過時間以百分之一秒為精度）
       function startTimer() {
         stats.startTime = Date.now();
         timerInterval = setInterval(() => {
-          stats.elapsedTime = Math.floor((Date.now() - stats.startTime) / 1000);
+          stats.elapsedTime =
+            Math.round((Date.now() - stats.startTime) / 10) / 100;
           updateTimeDisplay();
-        }, 1000);
+        }, 10);
       }
 
       function updateTimeDisplay() {
-        const minutes = Math.floor(stats.elapsedTime / 60);
-        const seconds = stats.elapsedTime % 60;
+        const t = stats.elapsedTime;
+        const totalSeconds = Math.floor(t);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
         document.getElementById("timeDisplay").textContent =
           minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+      }
+
+      // 結束畫面用時：分:秒.百分秒（與 stats.elapsedTime 精度一致）
+      function formatElapsedForResult(t) {
+        const minutes = Math.floor(t / 60);
+        const secondsRemainder = t - minutes * 60;
+        const secStr =
+          (secondsRemainder < 10 ? "0" : "") + secondsRemainder.toFixed(2);
+        return minutes + ":" + secStr;
       }
 
       // 重置统计
@@ -3032,7 +3040,7 @@
         document.getElementById("correctDisplay").textContent = "0";
         document.getElementById("errorDisplay").textContent = "0";
         document.getElementById("missedDisplay").textContent = stats.totalChars;
-        document.getElementById("speedDisplay").textContent = "0";
+        document.getElementById("speedDisplay").textContent = "0.0";
 
         if (timerInterval) {
           clearInterval(timerInterval);
@@ -3044,6 +3052,12 @@
       function finishPractice() {
         if (timerInterval) {
           clearInterval(timerInterval);
+          timerInterval = null;
+        }
+        if (stats.startTime != null) {
+          stats.elapsedTime =
+            Math.round((Date.now() - stats.startTime) / 10) / 100;
+          updateTimeDisplay();
         }
 
         // 禁用所有輸入框
@@ -3084,10 +3098,14 @@
             : 0;
         const speed =
           stats.elapsedTime > 0
-            ? Math.round((totalTypedSyllables / stats.elapsedTime) * 60)
-            : 0;
+            ? (
+                Math.round(
+                  (totalTypedSyllables / stats.elapsedTime) * 60 * 10,
+                ) / 10
+              ).toFixed(1)
+            : "0.0";
 
-        const timeText = document.getElementById("timeDisplay").textContent;
+        const timeText = formatElapsedForResult(stats.elapsedTime);
 
         let htmlContent =
           '<div class="speed-main">' +
@@ -3228,7 +3246,7 @@
         document.getElementById("correctDisplay").textContent = "0";
         document.getElementById("errorDisplay").textContent = "0";
         document.getElementById("missedDisplay").textContent = "0";
-        document.getElementById("speedDisplay").textContent = "0";
+        document.getElementById("speedDisplay").textContent = "0.0";
       }
 
       // 重新練習（使用相同題目）
