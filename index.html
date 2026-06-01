@@ -1381,32 +1381,10 @@
 
         // 根據文章類型切換到對應的文本模式
         if (article.type === "mapped") {
-          // 漢羅對應文本
-          // 切換到自訂文本模式
-          const customRadio = document.querySelector(
-            'input[name="textSource"][value="custom"]',
-          );
-          if (customRadio) {
-            customRadio.checked = true;
-          }
-
-          // 選擇漢羅對應文本選項
-          const mappedRadio = document.querySelector(
-            'input[name="textType"][value="mapped"]',
-          );
-          if (mappedRadio) {
-            mappedRadio.checked = true;
-          }
-
-          // 填入文章內容
-          document.getElementById("hanjiText").value = article.hanji;
-          document.getElementById("tailoText").value = article.tailo;
-
-          // 更新 UI
-          toggleTextSource();
-          toggleTextType();
-          updateSwitcherPosition(".source-options", "textSource");
-          updateSwitcherPosition(".text-type-options", "textType");
+          importMappedPracticeText({
+            hanji: article.hanji,
+            tailo: article.tailo,
+          });
         } else if (article.type === "single") {
           // 單一文本
           // 切換到自訂文本模式
@@ -1434,6 +1412,43 @@
           updateSwitcherPosition(".source-options", "textSource");
           updateSwitcherPosition(".text-type-options", "textType");
         }
+      }
+
+      // 匯入漢羅對應文本並切到自訂文本設定畫面
+      function importMappedPracticeText(data) {
+        if (!data) return false;
+        const hanji = normalizeUnicode(String(data.hanji || "").trim());
+        const tailo = normalizeUnicode(String(data.tailo || "").trim());
+        if (!hanji || !tailo) return false;
+
+        const customRadio = document.querySelector(
+          'input[name="textSource"][value="custom"]',
+        );
+        if (customRadio) {
+          customRadio.checked = true;
+        }
+
+        const mappedRadio = document.querySelector(
+          'input[name="textType"][value="mapped"]',
+        );
+        if (mappedRadio) {
+          mappedRadio.checked = true;
+        }
+
+        document.getElementById("hanjiText").value = hanji;
+        document.getElementById("tailoText").value = tailo;
+
+        toggleTextSource();
+        toggleTextType();
+        updateSwitcherPosition(".source-options", "textSource");
+        updateSwitcherPosition(".text-type-options", "textType");
+        saveSettings();
+
+        const customSettings = document.getElementById("customSettings");
+        if (customSettings) {
+          customSettings.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        return true;
       }
 
       // 切換文本類型模式
@@ -1724,6 +1739,51 @@
         }
       }
 
+      const allowedImportOrigins = [
+        "https://tkt7235.pythonanywhere.com",
+        "http://localhost:5000",
+        "http://127.0.0.1:5000",
+      ];
+
+      function isAllowedImportOrigin(origin) {
+        return allowedImportOrigins.includes(origin);
+      }
+
+      function announceImportReady() {
+        if (!window.opener) return;
+        try {
+          window.opener.postMessage(
+            { type: "taigi-typing-import-ready" },
+            "https://tkt7235.pythonanywhere.com",
+          );
+          window.opener.postMessage(
+            { type: "taigi-typing-import-ready" },
+            "http://localhost:5000",
+          );
+          window.opener.postMessage(
+            { type: "taigi-typing-import-ready" },
+            "http://127.0.0.1:5000",
+          );
+        } catch (e) {
+          console.error("無法送出匯入就緒訊息:", e);
+        }
+      }
+
+      window.addEventListener("message", (event) => {
+        if (!isAllowedImportOrigin(event.origin)) return;
+        if (!event.data || event.data.type !== "taigi-typing-import-text") {
+          return;
+        }
+
+        const imported = importMappedPracticeText(event.data);
+        if (imported && event.source) {
+          event.source.postMessage(
+            { type: "taigi-typing-import-ack" },
+            event.origin,
+          );
+        }
+      });
+
       // 初始化：設置初始狀態
       loadSettings(); // 先載入保存的設定
       toggleTextSource();
@@ -1735,6 +1795,7 @@
         ".romanization-options",
         "romanizationSystemRandom",
       );
+      announceImportReady();
 
       // 羅馬字轉換按鈕
       document
