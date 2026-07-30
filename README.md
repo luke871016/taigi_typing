@@ -5,5 +5,13 @@
 - 教典例句資料遵照 創用 CC 姓名標示-禁止改作 3.0 臺灣 授權條款使用
 - 文章練習文稿版權屬佇原作者，干焦通佇這个網頁內底使用
 - 網頁程式本身以 CC0 開源授權
+- 台羅／白話字轉換使用 [@kemdict/kesi](https://www.npmjs.com/package/@kemdict/kesi)（意傳科技 KeSi 的 TypeScript 轉寫，由 Kisaragi Hiu 提供）
 
-thautiongtau
+若欲重打包 kesi 瀏覽器版本：
+
+```bash
+npm install
+npm run build:kesi
+```
+
+會先套用 `scripts/patch-kesi.mjs`（修正多字元標點正規表達無正確的問題），閣再產生 `kesi.bundle.js` 予 `index.html` 載入。

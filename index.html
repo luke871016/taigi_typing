@@ -420,8 +420,8 @@
     </footer>
     <!-- 外部 JavaScript 檔案（已加入版本參數以避免快取） -->
     <script src="./exampleSentences.js?v=1.0.1"></script>
-    <script src="./tailoToPOJMapping.js?v=1.0.0"></script>
-    <script src="./articles.js?v=1.1.4"></script>
+    <script src="./kesi.bundle.js?v=0.3.1"></script>
+    <script src="./articles.js?v=1.1.5"></script>
     <script>
       // 全局变量
       let hanjiParagraphs = [];
@@ -446,7 +446,7 @@
       let currentRandomSentences = []; // 記錄當前隨機例句（包含音檔）
 
       // 教典例句數據已移至 exampleSentences.js 檔案
-      // 台羅轉白話字對應表已移至 tailoToPOJMapping.js 檔案
+      // 台羅／白話字轉換使用 @kemdict/kesi（kesi.bundle.js）
 
       // 簡單的種子隨機數生成器（LCG算法）
       class SeededRandom {
@@ -489,281 +489,48 @@
       // 用於記錄當前練習的種子碼
       let currentSeed = null;
 
-      // 建立白話字轉台羅的反向映射
-      const pojToTailoMapping = {};
-      for (const [tailo, poj] of Object.entries(tailoToPOJMapping)) {
-        pojToTailoMapping[poj] = tailo;
-      }
-
-      // 台羅轉白話字轉換函數
-      function convertTailoToPOJ(text) {
-        if (!text) return text;
-
-        let result = "";
-        let i = 0;
-
-        while (i < text.length) {
-          const char = text[i];
-
-          // 處理空格和標點：直接保留
-          if (/\s/.test(char) || isPunctuation(char)) {
-            result += char;
-            i++;
-            continue;
-          }
-
-          // 處理漢字（包括代理對）
-          const hanjiMatch = getNextHanjiChar(text, i);
-          if (hanjiMatch) {
-            result += hanjiMatch.char;
-            i += hanjiMatch.length;
-            continue;
-          }
-
-          // 處理數字
-          if (/\d/.test(char)) {
-            let numberStr = "";
-            while (i < text.length && /\d/.test(text[i])) {
-              numberStr += text[i];
-              i++;
-            }
-            result += numberStr;
-            continue;
-          }
-
-          // 否則視為羅馬字：收集到空格、標點、漢字或數字為止
-          let word = "";
-          while (i < text.length) {
-            const c = text[i];
-
-            // 遇到空格、標點、漢字或數字就停止
-            if (
-              /\s/.test(c) ||
-              isPunctuation(c) ||
-              getNextHanjiChar(text, i) ||
-              /\d/.test(c)
-            ) {
-              break;
-            }
-
-            word += c;
-            i++;
-          }
-
-          // 轉換羅馬字詞
-          if (word.length > 0) {
-            result += convertWord(word);
-          }
-        }
-
-        return result;
-      }
-
-      // 轉換單個詞（可能包含多個音節）
-      function convertWord(word) {
-        if (!word || word.length === 0) return word;
-
-        // 處理連字符號分隔的音節
-        // 先處理輕聲符號 --
-        const parts = word.split(/(--)/);
-        const converted = parts.map((part) => {
-          if (part === "--") {
-            return "--"; // 輕聲符號保持
-          }
-
-          // 按單連字符號分割
-          const syllables = part.split(/(-)/);
-          return syllables
-            .map((syllable) => {
-              if (syllable === "-") {
-                return "-"; // 連字符號保持
-              }
-              return convertSyllable(syllable);
-            })
-            .join("");
-        });
-
-        return converted.join("");
-      }
-
-      // 轉換單個音節（考慮大小寫）
-      function convertSyllable(syllable) {
-        if (!syllable || syllable.length === 0) return syllable;
-
-        // 檢查首字母是否大寫
-        const isCapitalized =
-          syllable.length > 0 &&
-          syllable[0] === syllable[0].toUpperCase() &&
-          syllable[0] !== syllable[0].toLowerCase();
-
-        // 轉換為小寫進行查找
-        const lowerSyllable = syllable.toLowerCase();
-
-        if (tailoToPOJMapping[lowerSyllable]) {
-          const pojSyllable = tailoToPOJMapping[lowerSyllable];
-
-          // 如果原音節首字母大寫，結果也要大寫
-          if (isCapitalized && pojSyllable.length > 0) {
-            return pojSyllable.charAt(0).toUpperCase() + pojSyllable.slice(1);
-          }
-
-          return pojSyllable;
-        }
-
-        // 如果沒有對應，返回原音節
-        return syllable;
-      }
-
-      // 白話字轉台羅轉換函數
-      function convertPOJToTailo(text) {
-        if (!text) return text;
-
-        let result = "";
-        let i = 0;
-
-        while (i < text.length) {
-          const char = text[i];
-
-          // 處理空格和標點：直接保留
-          if (/\s/.test(char) || isPunctuation(char)) {
-            result += char;
-            i++;
-            continue;
-          }
-
-          // 處理漢字（包括代理對）
-          const hanjiMatch = getNextHanjiChar(text, i);
-          if (hanjiMatch) {
-            result += hanjiMatch.char;
-            i += hanjiMatch.length;
-            continue;
-          }
-
-          // 處理數字
-          if (/\d/.test(char)) {
-            let numberStr = "";
-            while (i < text.length && /\d/.test(text[i])) {
-              numberStr += text[i];
-              i++;
-            }
-            result += numberStr;
-            continue;
-          }
-
-          // 否則視為羅馬字：收集到空格、標點、漢字或數字為止
-          let word = "";
-          while (i < text.length) {
-            const c = text[i];
-
-            // 遇到空格、標點、漢字或數字就停止
-            if (
-              /\s/.test(c) ||
-              isPunctuation(c) ||
-              getNextHanjiChar(text, i) ||
-              /\d/.test(c)
-            ) {
-              break;
-            }
-
-            word += c;
-            i++;
-          }
-
-          // 轉換羅馬字詞
-          if (word.length > 0) {
-            result += convertPOJWord(word);
-          }
-        }
-
-        return result;
-      }
-
-      // 轉換單個白話字詞（可能包含多個音節）
-      function convertPOJWord(word) {
-        if (!word || word.length === 0) return word;
-
-        // 處理連字符號分隔的音節
-        // 先處理輕聲符號 --
-        const parts = word.split(/(--)/);
-        const converted = parts.map((part) => {
-          if (part === "--") {
-            return "--"; // 輕聲符號保持
-          }
-
-          // 按單連字符號分割
-          const syllables = part.split(/(-)/);
-          return syllables
-            .map((syllable) => {
-              if (syllable === "-") {
-                return "-"; // 連字符號保持
-              }
-              return convertPOJSyllable(syllable);
-            })
-            .join("");
-        });
-
-        return converted.join("");
-      }
-
-      // 轉換單個白話字音節（考慮大小寫）
-      function convertPOJSyllable(syllable) {
-        if (!syllable || syllable.length === 0) return syllable;
-
-        // 先處理白話字鼻音 hⁿ 和 ⁿh → 台羅 nnh
-        // 檢查是否包含 hⁿ 或 ⁿh（不區分大小寫）
-        let processedSyllable = syllable;
-
-        // 處理 hⁿ → nnh
-        if (/hⁿ/i.test(processedSyllable)) {
-          processedSyllable = processedSyllable.replace(/hⁿ/gi, (match) => {
-            // 保持原本的大小寫
-            if (match === "Hⁿ") return "Nnh";
-            if (match === "hⁿ") return "nnh";
-            return "nnh"; // 預設
-          });
-        }
-
-        // 處理 ⁿh → nnh
-        if (/ⁿh/i.test(processedSyllable)) {
-          processedSyllable = processedSyllable.replace(/ⁿh/gi, (match) => {
-            // 保持原本的大小寫
-            if (match === "ⁿH") return "Nnh";
-            if (match === "ⁿh") return "nnh";
-            return "nnh"; // 預設
-          });
-        }
-
-        // 檢查首字母是否大寫
-        const isCapitalized =
-          processedSyllable.length > 0 &&
-          processedSyllable[0] === processedSyllable[0].toUpperCase() &&
-          processedSyllable[0] !== processedSyllable[0].toLowerCase();
-
-        // 轉換為小寫進行查找
-        const lowerSyllable = processedSyllable.toLowerCase();
-
-        if (pojToTailoMapping[lowerSyllable]) {
-          const tailoSyllable = pojToTailoMapping[lowerSyllable];
-
-          // 如果原音節首字母大寫，結果也要大寫
-          if (isCapitalized && tailoSyllable.length > 0) {
-            return (
-              tailoSyllable.charAt(0).toUpperCase() + tailoSyllable.slice(1)
-            );
-          }
-
-          return tailoSyllable;
-        }
-
-        // 如果沒有對應，返回處理過鼻音的音節
-        return processedSyllable;
-      }
-
       // Unicode 正規化函數：將文本正規化為 NFC 形式以便比較
       function normalizeUnicode(text) {
         if (!text) return text;
         // NFC: Canonical Composition - 組合形式
         return text.normalize("NFC");
+      }
+
+      // kesi 重組漢羅時會丟掉空白（只在羅馬字之間補空格），
+      // 先用 PUA 標記保護空白，轉換後再還原，以保留標點後空格等。
+      const KESI_WS_START = "\uE010";
+      const KESI_WS_END = "\uE011";
+
+      function convertWithKesi(text, toSystem) {
+        if (!text) return text;
+
+        const spaces = [];
+        const protectedText = text.replace(/\s+/g, (match) => {
+          const index = spaces.length;
+          spaces.push(match);
+          return `${KESI_WS_START}${index}${KESI_WS_END}`;
+        });
+
+        const ku = new Kesi.Ku(protectedText);
+        let converted =
+          toSystem === "poj" ? ku.POJ().hanlo : ku.KIP().hanlo;
+
+        converted = converted.replace(
+          new RegExp(`${KESI_WS_START}(\\d+)${KESI_WS_END}`, "g"),
+          (_, index) => spaces[Number(index)] ?? ""
+        );
+
+        return normalizeUnicode(converted);
+      }
+
+      // 台羅轉白話字（@kemdict/kesi）
+      function convertTailoToPOJ(text) {
+        return convertWithKesi(text, "poj");
+      }
+
+      // 白話字轉台羅／教典羅馬字（@kemdict/kesi）
+      function convertPOJToTailo(text) {
+        return convertWithKesi(text, "kip");
       }
 
       // 羅馬字鼻化尾音 hⁿ／ⁿh 標準化：兩種寫法視為同音，比對時統一成 hⁿ（台羅與白話字皆適用）

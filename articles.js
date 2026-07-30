@@ -860,4 +860,29 @@ Hóo tsai-iánn niau m̄ khíng tsun-siú iok-sok, tō pàng-tiau kóng m̄ pàn
 In-uī in lóng khì tik-sit-tio̍h hóo, m̄ kánn koh tuà tī suann-nâ-lāi, tō lo̍h-suann tuè lâng sing-ua̍h, hōo lâng lâi pó-hōo--in. Iā in-uī án-ne, káu kàu-tann iáu tsiok tsheh niau, put-sî lóng teh kah niau uan bē suah.
 `,
   },
+  {
+    id: 35,
+    title: "浮嶼",
+    source: "温若喬 摘自《日花閃爍》，時報出版（2026），嘛收錄佇《台語現代詩選》，前衛出版社（2026）",
+    url: "",
+    tags: ["詩"],
+    type: "mapped",
+    new: true,
+    hanji:`日光恬恬
+曝佇青青闊闊的海面
+共微微起落的湧陵
+變做一點一點的天星
+這粒彼粒
+閃閃爍爍
+參滿月仝款的浮嶼金金
+咧共船頂的阮歡迎`,
+    tailo:`Ji̍t-kng tiām-tiām
+Pha̍k tī tshinn-tshinn khuah-khuah ê hái-bīn
+kā bî-bî khí-lo̍h ê íng-niā
+piàn-tsò tsi̍t tiám tsi̍t tiám ê thinn-tshinn
+Tsit lia̍p hit lia̍p
+siám-siám-sih-sih
+tsham muá-gue̍h kāng-khuán ê phû-sū kim-kim
+teh kā tsûn-tíng ê gún huan-gîng`,
+  },
 ];
