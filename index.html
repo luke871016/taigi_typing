@@ -63,7 +63,7 @@
       例如：將 v=1.0.0 改為 v=1.0.1，即可強制瀏覽器重新載入所有資源
     -->
     <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet" />
-    <link href="./style.css?v=1.0.6" rel="stylesheet" />
+    <link href="./style.css?v=1.0.8" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
@@ -337,6 +337,51 @@
           </div>
         </div>
 
+        <div id="romanAssistSection">
+          <h2>羅馬字輔助</h2>
+          <div
+            style="
+              color: var(--caption-text);
+              font-size: 13px;
+              margin-bottom: 10px;
+            "
+          >
+            佇羅馬字頂懸顯示數字調抑是 Telex 輔助（<a href="https://telex.kahiok.com/?mode=tl" target="_blank" rel="noopener noreferrer"></a>Telex 參考</a>）
+          </div>
+          <div class="roman-assist-selection">
+            <div class="roman-assist-options">
+              <div class="roman-assist-option">
+                <input
+                  type="radio"
+                  id="romanAssistNone"
+                  name="romanAssist"
+                  value="none"
+                  checked
+                />
+                <label for="romanAssistNone">無</label>
+              </div>
+              <div class="roman-assist-option">
+                <input
+                  type="radio"
+                  id="romanAssistNumeric"
+                  name="romanAssist"
+                  value="numeric"
+                />
+                <label for="romanAssistNumeric">數字調</label>
+              </div>
+              <div class="roman-assist-option">
+                <input
+                  type="radio"
+                  id="romanAssistTelex"
+                  name="romanAssist"
+                  value="telex"
+                />
+                <label for="romanAssistTelex">Telex</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="button-group">
           <button class="start-btn" id="startBtn">開始練習</button>
         </div>
@@ -423,7 +468,7 @@
     <script src="./kesi.bundle.js?v=0.3.1"></script>
     <script src="./articles.js?v=1.1.5"></script>
     <script>
-      // 全局变量
+      // 全域變數
       let hanjiParagraphs = [];
       let tailoParagraphs = [];
       let paragraphs = [];
@@ -442,6 +487,7 @@
       let isComposing = false;
       let isRandomMode = false; // 記錄是否為隨機模式
       let currentRomanizationSystem = "tailo"; // 記錄當前羅馬字系統（tailo 或 poj）
+      let romanAssistMode = "none"; // 羅馬字輔助：none | numeric | telex
       let allowPaste = false; // 除錯用：是否允許貼上（預設禁止）
       let currentRandomSentences = []; // 記錄當前隨機例句（包含音檔）
 
@@ -652,6 +698,8 @@
         const modeSelectionSection = document.getElementById(
           "modeSelectionSection",
         );
+        const romanAssistSection =
+          document.getElementById("romanAssistSection");
 
         const startBtn = document.getElementById("startBtn");
         const buttonGroup = document.querySelector(".button-group");
@@ -664,6 +712,7 @@
           randomRomanizationSection.style.display = "block";
           customRomanizationSection.style.display = "none";
           modeSelectionSection.style.display = "block";
+          if (romanAssistSection) romanAssistSection.style.display = "block";
           buttonGroup.style.display = "flex";
         } else if (textSource === "article") {
           // 自選文本模式
@@ -673,6 +722,7 @@
           randomRomanizationSection.style.display = "none";
           customRomanizationSection.style.display = "none";
           modeSelectionSection.style.display = "none";
+          if (romanAssistSection) romanAssistSection.style.display = "none";
           buttonGroup.style.display = "none"; // 隱藏開始練習按鈕
 
           // 重置搜尋和過濾狀態
@@ -692,6 +742,7 @@
           articleSelection.style.display = "none";
           randomRomanizationSection.style.display = "none";
           customRomanizationSection.style.display = "block";
+          if (romanAssistSection) romanAssistSection.style.display = "block";
           buttonGroup.style.display = "flex";
 
           // 更新文本類型顯示狀態
@@ -1311,18 +1362,16 @@
         // 移除所有滑塊位置類別
         container.classList.remove("switcher-right", "switcher-far-right");
 
-        // 如果是 textSource，支援三個選項
-        if (name === "textSource" && radios.length === 3) {
+        // 三個選項（練習文本、羅馬字輔助等）
+        if (radios.length === 3) {
           if (checkedIndex === 1) {
             container.classList.add("switcher-right");
           } else if (checkedIndex === 2) {
             container.classList.add("switcher-far-right");
           }
-        } else {
-          // 其他選項只有兩個，使用原本的邏輯
-          if (checkedIndex === 1) {
-            container.classList.add("switcher-right");
-          }
+        } else if (checkedIndex === 1) {
+          // 兩個選項
+          container.classList.add("switcher-right");
         }
       }
 
@@ -1358,6 +1407,14 @@
           });
         });
 
+      document
+        .querySelectorAll('input[name="romanAssist"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", () => {
+            updateSwitcherPosition(".roman-assist-options", "romanAssist");
+          });
+        });
+
       // 保存設定到 localStorage
       function saveSettings() {
         const textSource =
@@ -1386,6 +1443,9 @@
             document.querySelector(
               'input[name="romanizationSystemRandom"]:checked',
             )?.value || "tailo",
+          romanAssist:
+            document.querySelector('input[name="romanAssist"]:checked')
+              ?.value || "none",
           hanjiText: document.getElementById("hanjiText")?.value || "",
           tailoText: document.getElementById("tailoText")?.value || "",
           singleText: document.getElementById("singleText")?.value || "",
@@ -1471,6 +1531,16 @@
             }
           }
 
+          // 恢復羅馬字輔助
+          if (settings.romanAssist) {
+            const romanAssistRadio = document.querySelector(
+              `input[name="romanAssist"][value="${settings.romanAssist}"]`,
+            );
+            if (romanAssistRadio) {
+              romanAssistRadio.checked = true;
+            }
+          }
+
           // 恢復自訂文本內容
           if (settings.hanjiText !== undefined) {
             const hanjiText = document.getElementById("hanjiText");
@@ -1501,6 +1571,7 @@
             ".romanization-options",
             "romanizationSystemRandom",
           );
+          updateSwitcherPosition(".roman-assist-options", "romanAssist");
         } catch (e) {
           console.error("無法從 localStorage 讀取設定:", e);
         }
@@ -1562,6 +1633,7 @@
         ".romanization-options",
         "romanizationSystemRandom",
       );
+      updateSwitcherPosition(".roman-assist-options", "romanAssist");
       announceImportReady();
 
       // 羅馬字轉換按鈕
@@ -1635,6 +1707,10 @@
       function startPractice() {
         // 保存設定到 localStorage
         saveSettings();
+
+        romanAssistMode =
+          document.querySelector('input[name="romanAssist"]:checked')?.value ||
+          "none";
 
         const textSource = document.querySelector(
           'input[name="textSource"]:checked',
@@ -1875,6 +1951,125 @@
       }
 
       // 创建Ruby标注
+      // 台羅／白話字聲調輔助：調號對應
+      // 1 無標、2 á、3 à、4 無標+入聲尾、5 â、6 ǎ、7 ā、8 a̍+入聲尾、9 a̋
+      const TONE_COMBINING_MARKS = {
+        "\u0301": 2, // acute
+        "\u0300": 3, // grave
+        "\u0302": 5, // circumflex
+        "\u030C": 6, // caron
+        "\u0306": 6, // breve（部分系統用 ă）
+        "\u0304": 7, // macron
+        "\u030D": 8, // vertical line above
+        "\u030B": 9, // double acute
+      };
+      // 台語齒盤 Telex：v y d w x q → 2 3 5 7 8 9
+      const TELEX_TONE_LETTERS = {
+        2: "v",
+        3: "y",
+        5: "d",
+        7: "w",
+        8: "x",
+        9: "q",
+      };
+      const TONE_MARK_STRIP_RE = /[\u0300\u0301\u0302\u0304\u0306\u030B\u030C\u030D]/g;
+
+      function stripSyllableToneMarks(syllable) {
+        return syllable
+          .normalize("NFD")
+          .replace(TONE_MARK_STRIP_RE, "")
+          .normalize("NFC");
+      }
+
+      function detectSyllableTone(syllable) {
+        const nfd = syllable.normalize("NFD");
+        for (const ch of nfd) {
+          if (TONE_COMBINING_MARKS[ch]) {
+            return TONE_COMBINING_MARKS[ch];
+          }
+        }
+        // 無調號：入聲尾 -p/-t/-k/-h → 4，否則 → 1
+        const endingBase = stripSyllableToneMarks(syllable).replace(/ⁿ/g, "");
+        if (/[ptkhPTKH]$/.test(endingBase)) {
+          return 4;
+        }
+        return 1;
+      }
+
+      function convertSyllableToAssist(syllable, mode) {
+        if (!syllable || mode === "none") return syllable;
+        const tone = detectSyllableTone(syllable);
+        const base = stripSyllableToneMarks(syllable);
+        if (mode === "numeric") {
+          return base + String(tone);
+        }
+        if (mode === "telex") {
+          return base + (TELEX_TONE_LETTERS[tone] || "");
+        }
+        return syllable;
+      }
+
+      function convertRomanToAssist(text, mode) {
+        if (!text || !mode || mode === "none") return "";
+        // 保留單一 - 與輕聲 --
+        return text
+          .split(/(--|-)/)
+          .map((token) => {
+            if (!token || token === "-" || token === "--") return token;
+            if (/^\d+$/.test(token) || isPunctuation(token)) return token;
+            return convertSyllableToAssist(token, mode);
+          })
+          .join("");
+      }
+
+      function buildToneAssistHtml(romanText) {
+        if (romanAssistMode === "none" || !romanText) return "";
+        if (isPunctuation(romanText) || /^\d+$/.test(romanText)) return "";
+        const assist = convertRomanToAssist(romanText, romanAssistMode);
+        if (!assist) return "";
+        return (
+          '<span class="tone-assist">' + escapeHtml(assist) + "</span>"
+        );
+      }
+
+      function buildRubyRtHtml(annotationText, isRomanAnnotation) {
+        const assistHtml = isRomanAnnotation
+          ? buildToneAssistHtml(annotationText)
+          : "";
+        if (assistHtml) {
+          return (
+            '<rt class="has-tone-assist">' +
+            assistHtml +
+            escapeHtml(annotationText) +
+            "</rt>"
+          );
+        }
+        return "<rt>" + escapeHtml(annotationText) + "</rt>";
+      }
+
+      function buildRomanBaseHtml(romanText) {
+        // 台羅練習模式：輔助放在羅馬字「後面」的 DOM 節點，
+        // 配合 ruby/char-mark 的 column-reverse，視覺上會出現在羅馬字上方
+        const assistHtml = buildToneAssistHtml(romanText);
+        return escapeHtml(romanText) + assistHtml;
+      }
+
+      // 取得 char-mark 的練習目標文字（排除 rt 與聲調輔助）
+      function getCharMarkPlainText(mark) {
+        return Array.from(mark.childNodes)
+          .filter((node) => {
+            if (node.nodeType === 3) return true;
+            if (node.nodeType !== 1) return false;
+            if (node.tagName === "RT") return false;
+            if (node.classList && node.classList.contains("tone-assist")) {
+              return false;
+            }
+            return true;
+          })
+          .map((node) => node.textContent)
+          .join("");
+      }
+
       function createRubyText(paragraphIndex) {
         const hanjiText = hanjiParagraphs[paragraphIndex];
         const tailoText = tailoParagraphs[paragraphIndex];
@@ -1930,7 +2125,7 @@
                   html += '<span class="kinsoku-space">\u2060</span>';
                   html += '<ruby class="char-mark' + punctuationClass + '">';
                   html += escapeHtml(hanji);
-                  html += "<rt>" + escapeHtml(item.text) + "</rt>";
+                  html += buildRubyRtHtml(item.text, true);
                   html += "</ruby>";
                   html += "</span>";
                 } else {
@@ -1938,7 +2133,7 @@
                   html += '<span class="kinsoku-space">\u2060</span>';
                   html += '<ruby class="char-mark' + punctuationClass + '">';
                   html += escapeHtml(hanji);
-                  html += "<rt>" + escapeHtml(item.text) + "</rt>";
+                  html += buildRubyRtHtml(item.text, true);
                   html += "</ruby>";
                 }
                 lastRuby = ""; // 標點符號後重置
@@ -1962,7 +2157,7 @@
               if (remaining.startsWith(tailo)) {
                 lastRuby = '<ruby class="char-mark">';
                 lastRuby += escapeHtml(hanji);
-                lastRuby += "<rt>" + escapeHtml(tailo) + "</rt>";
+                lastRuby += buildRubyRtHtml(tailo, true);
                 lastRuby += "</ruby>";
                 html += lastRuby;
 
@@ -2021,8 +2216,8 @@
                   html += lastRuby;
                   html += '<span class="kinsoku-space">\u2060</span>';
                   html += '<ruby class="char-mark' + punctuationClass + '">';
-                  html += escapeHtml(tailo);
-                  html += "<rt>" + escapeHtml(hanji) + "</rt>";
+                  html += buildRomanBaseHtml(tailo);
+                  html += buildRubyRtHtml(hanji, false);
                   html += "</ruby>";
                   html += "</span>";
                   lastRuby = ""; // 標點符號後重置
@@ -2032,8 +2227,8 @@
                     html += '<span class="kinsoku-space">\u2060</span>';
                   }
                   lastRuby = '<ruby class="char-mark' + punctuationClass + '">';
-                  lastRuby += escapeHtml(tailo);
-                  lastRuby += "<rt>" + escapeHtml(hanji) + "</rt>";
+                  lastRuby += buildRomanBaseHtml(tailo);
+                  lastRuby += buildRubyRtHtml(hanji, false);
                   lastRuby += "</ruby>";
                   html += lastRuby;
                 }
@@ -2149,16 +2344,7 @@
           if (word.length > 0) {
             const romanizationHTML = createRomanizationMarkup(word);
             html += romanizationHTML;
-            // 提取最後一個字符標記作為 lastCharMark
-            // 簡單處理：如果只有一個音節，就記錄它
-            const matches = romanizationHTML.match(
-              /<span class="char-mark">([^<]+)<\/span>/g,
-            );
-            if (matches && matches.length > 0) {
-              lastCharMark = matches[matches.length - 1];
-            } else {
-              lastCharMark = "";
-            }
+            lastCharMark = romanizationHTML;
           }
         }
 
@@ -2208,7 +2394,12 @@
       function createRomanizationMarkup(word) {
         // 將整個詞（包含連字符）作為一個 char-mark
         // 這樣連字符號就會包含在參考文本中
-        return '<span class="char-mark">' + escapeHtml(word) + "</span>";
+        // 輔助節點放後面，配合 column-reverse 顯示在羅馬字上方
+        return (
+          '<span class="char-mark">' +
+          buildRomanBaseHtml(word) +
+          "</span>"
+        );
       }
 
       // 分析台罗文本
@@ -2644,29 +2835,14 @@
               skippedSpaces++;
             }
 
-            const rubyTextNodes = Array.from(mark.childNodes).filter(
-              (node) =>
-                node.nodeType === 3 ||
-                (node.nodeType === 1 && node.tagName !== "RT"),
-            );
-            const rubyText = rubyTextNodes
-              .map((node) => node.textContent)
-              .join("");
-
+            const rubyText = getCharMarkPlainText(mark);
             const rubyLength = rubyText.length;
             const typedSegment = typedText.substr(typedIndex, rubyLength);
 
             // 只有在用戶已經開始輸入當前Ruby時，才檢查空格錯誤
             if (typedSegment.length > 0 && markIndex > 0) {
               const prevMark = charMarksArray[markIndex - 1];
-              const prevRubyTextNodes = Array.from(prevMark.childNodes).filter(
-                (node) =>
-                  node.nodeType === 3 ||
-                  (node.nodeType === 1 && node.tagName !== "RT"),
-              );
-              const prevRubyText = prevRubyTextNodes
-                .map((node) => node.textContent)
-                .join("");
+              const prevRubyText = getCharMarkPlainText(prevMark);
               const prevIsRomanization =
                 /^[a-zA-Zāáàăâǎēéèêěīíìĭǐōóòŏôǒūúùŭǔǖǘǚǜḿńňñṁṅṇṉⁿ-]+$/.test(
                   prevRubyText,
@@ -2724,14 +2900,7 @@
           charMarks.forEach((mark) => {
             mark.classList.remove("correct", "incorrect");
 
-            const rubyTextNodes = Array.from(mark.childNodes).filter(
-              (node) =>
-                node.nodeType === 3 ||
-                (node.nodeType === 1 && node.tagName !== "RT"),
-            );
-            const rubyText = rubyTextNodes
-              .map((node) => node.textContent)
-              .join("");
+            const rubyText = getCharMarkPlainText(mark);
 
             // 台羅模式：跳過用戶輸入中的空格
             while (
@@ -3224,12 +3393,7 @@
 
       // 計算單個 char-mark 的音節數
       function getSyllableCountFromMark(mark) {
-        const rubyTextNodes = Array.from(mark.childNodes).filter(
-          (node) =>
-            node.nodeType === 3 ||
-            (node.nodeType === 1 && node.tagName !== "RT"),
-        );
-        const text = rubyTextNodes.map((node) => node.textContent).join("");
+        const text = getCharMarkPlainText(mark);
 
         // 檢查是否為 span 標籤（單一文本模式）
         if (mark.tagName === "SPAN") {

@@ -1134,6 +1134,102 @@ ruby.char-mark.punctuation-mark {
   left: calc(50%);
 }
 
+/* 羅馬字輔助（三選項） */
+.roman-assist-selection {
+  margin-top: 0;
+}
+
+.roman-assist-options {
+  display: flex;
+  position: relative;
+  background: white;
+  border: 1px solid var(--borders);
+  border-radius: 3px;
+  padding: 4px;
+  gap: 0;
+}
+
+.roman-assist-option {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.roman-assist-option input[type="radio"] {
+  display: none;
+}
+
+.roman-assist-option label {
+  cursor: pointer;
+  padding: 12px 20px;
+  display: block;
+  text-align: center;
+  transition: color 0.3s ease;
+  font-size: 16px;
+  color: var(--primary-text);
+  position: relative;
+  z-index: 3;
+}
+
+.roman-assist-option input[type="radio"]:checked + label {
+  color: white;
+  font-weight: normal;
+}
+
+.roman-assist-options::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(33.333% - 4px);
+  height: calc(100% - 8px);
+  background: var(--link-color);
+  border-radius: 3px;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+.roman-assist-options.switcher-right::before {
+  left: calc(33.333%);
+}
+
+.roman-assist-options.switcher-far-right::before {
+  left: calc(66.666%);
+}
+
+/* 羅馬字聲調輔助文字 */
+.tone-assist {
+  display: block;
+  font-size: 12px;
+  color: var(--caption-text);
+  opacity: 0.65;
+  line-height: 1.15;
+  font-weight: normal;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  user-select: none;
+  margin-bottom: 3px;
+}
+
+rt.has-tone-assist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.char-mark.correct .tone-assist,
+.char-mark.correct rt .tone-assist {
+  color: var(--link-color);
+  opacity: 0.55;
+}
+
+.char-mark.incorrect .tone-assist,
+.char-mark.incorrect rt .tone-assist {
+  color: #c44;
+  opacity: 0.55;
+}
+
 /* 羅馬字轉換工具 */
 .romanization-conversion {
   display: flex;
@@ -1208,6 +1304,10 @@ ruby.char-mark.punctuation-mark {
 
   rt {
     font-size: 13px;
+  }
+
+  .tone-assist {
+    font-size: 11px;
   }
 
   .stats-bar {
