@@ -1577,9 +1577,10 @@
         }
       }
 
+      // postMessage 的 origin 不含路徑與結尾斜線（例如 https://example.com）
       const allowedImportOrigins = [
         "https://tkt7235.pythonanywhere.com",
-        "https://taigilyrics.kiantiong.com/",
+        "https://taigilyrics.kiantiong.com",
         "http://localhost:5000",
         "http://127.0.0.1:5000",
       ];
@@ -1591,18 +1592,12 @@
       function announceImportReady() {
         if (!window.opener) return;
         try {
-          window.opener.postMessage(
-            { type: "taigi-typing-import-ready" },
-            "https://tkt7235.pythonanywhere.com",
-          );
-          window.opener.postMessage(
-            { type: "taigi-typing-import-ready" },
-            "http://localhost:5000",
-          );
-          window.opener.postMessage(
-            { type: "taigi-typing-import-ready" },
-            "http://127.0.0.1:5000",
-          );
+          allowedImportOrigins.forEach((origin) => {
+            window.opener.postMessage(
+              { type: "taigi-typing-import-ready" },
+              origin,
+            );
+          });
         } catch (e) {
           console.error("無法送出匯入就緒訊息:", e);
         }
