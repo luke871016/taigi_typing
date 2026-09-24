@@ -1959,13 +1959,15 @@
         "\u030D": 8, // vertical line above
         "\u030B": 9, // double acute
       };
-      // 台語齒盤 Telex：v y d w x q → 2 3 5 7 8 9
+      // 台語齒盤 Telex：1/4=x、2/8=v、3=y、5=d、7=w、9=q
       const TELEX_TONE_LETTERS = {
+        1: "x",
         2: "v",
         3: "y",
+        4: "x",
         5: "d",
         7: "w",
-        8: "x",
+        8: "v",
         9: "q",
       };
       const TONE_MARK_STRIP_RE = /[\u0300\u0301\u0302\u0304\u0306\u030B\u030C\u030D]/g;
