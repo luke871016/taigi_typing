@@ -913,25 +913,25 @@ teh kā tsûn-tíng ê gún huan-gîng`,
 十八戇，學生落屎喝冤枉
 十九戇，茉莉蓮嘛來落葬
 二十戇，毋敢赴會驚破功`,
-    tailo:`Tē-it gōng, thè kam-tsià hōo thóo-tī-kong
-Tē-jī gōng, bô leh sìn-táu tuā-tshiū-kong
+    tailo:`Tē-it gōng, thuè kam-tsià hōo thóo-tī-kong
+Tē-lī gōng, bô-leh sìn-táu tuā-tshiū-kong
 Tē-sann gōng, m̄-tsiânn phok-sū ké phòng-hong
-Tē-sì gōng, hāng-lōo niáu-tshí luān-luān tsông
+Tē-sì gōng, hāng-lōo niáu-tshú luān-luān tsông
 Tē-gōo gōng, si̍t-phín an-tsuân pàng-hòng-hòng
 Tē-la̍k gōng, àm-kì bûn-kó sì-kè iōng
-Tē-tshit gōng, senn senn sian-jú ta̍k-kang kóng
-Tē-peh gōng, pah-bān ê suànn bô tsing-kong
+Tē-tshit gōng, shēng shēng xiān rǔ ta̍k-kang kóng
+Tē-pueh gōng, pah-bān ê suànn bô tsing-kong
 Tē-káu gōng, lōo-pinn pok-hun khong-khong-khong
-Tē-tsa̍p gōng, mn̄g A tap B sī tsuan-tióng
+Tē-tsa̍p gōng, wèn A dá B sī tsuan-tióng
 Tsa̍p-it gōng, gín-á m̄ kòo kòo thi̍h-siông
-Tsa̍p-jī gōng, tsú-uí tòng-tsò Un-tsú-kong
-Tsa̍p-sann gōng, Tshiūnn-suann Hóo-suann m̄ bat hóng
-Tsa̍p-sì gōng, tsāi-tē jîn-bûn tsiok lióng-kong
-Tsa̍p-gōo gōng, tsiáu-tn̂g ke-tōo tsin bô liōng
-Tsa̍p-la̍k gōng, tshenn-pōng-pe̍h-pōng se̍h-lin-long
-Tsa̍p-tshit gōng, lâng kóng Tâi-pak ìn Ko-hiông
-Tsa̍p-peh gōng, ha̍k-sing làu-sái huah uan-óng
-Tsa̍p-káu gōng, Ba̍k-nī-liân mā lâi lo̍h-tsòng
-Jī-tsa̍p gōng, m̄ kánn hù-huē kiann phò-kong`,
+Tsa̍p-lī gōng, tsú-uí tòng-tsuè Un-tsú-kong
+Tsa̍p-sann gōng, Tshiūnn-suann Hóo-suann m̄-pat hóng
+Tsa̍p-sì gōng, tsāi-tuē lîn-bûn tsiok lióng-kong
+Tsa̍p-gōo gōng, tsiáu-tn̂g kue-tōo tsin bô-liōng
+Tsa̍p-la̍k gōng, tshinn-pōng-pe̍h-pōng se̍h-lin-long
+Tsa̍p-tshit gōng, lâng mn̄g Tâi-pak ìn Ko-hiông
+Tsa̍p-pueh gōng, ha̍k-sing làu-sái huah uan-óng
+Tsa̍p-káu gōng, mò lì lián mā lâi lo̍h-tsòng
+Lī-tsa̍p gōng, m̄-kánn hù-huē kiann phò-kong`,
   },
 ];
