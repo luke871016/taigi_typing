@@ -867,7 +867,7 @@ In-uī in lóng khì tik-sit-tio̍h hóo, m̄ kánn koh tuà tī suann-nâ-lāi,
     url: "https://www.books.com.tw/products/0011039851",
     tags: ["詩"],
     type: "mapped",
-    new: true,
+    new: false,
     hanji:`日光恬恬
 曝佇青青闊闊的海面
 共微微起落的湧陵
@@ -884,5 +884,54 @@ Tsit lia̍p hit lia̍p
 siám-siám-sih-sih
 tsham muá-gue̍h kāng-khuán ê phû-sū kim-kim
 teh kā tsûn-tíng ê gún huan-gîng`,
+  },
+  {
+    id: 36,
+    title: "新台北二十戇",
+    source: "TPU",
+    url: "https://www.threads.com/share/_nom3z8uT",
+    tags: ["七字仔"],
+    type: "mapped",
+    new: true,
+    hanji:`第一戇，退甘蔗予土地公
+第二戇，無咧信篤大樹公
+第三戇，毋成博士假膨風
+第四戇，巷路鳥鼠亂亂傱
+第五戇，食品安全放放放
+第六戇，暗記文稿四界用
+第七戇，生生鮮乳逐工講
+第八戇，百萬的傘無精光
+第九戇，路邊噗薰悾悾悾
+第十戇，問A答B是專長
+十一戇，囡仔毋顧顧喋詳
+十二戇，主委當做恩主公
+十三戇，象山虎山毋捌訪
+十四戇，在地人文足兩光
+十五戇，鳥腸雞肚真無量
+十六戇，青磅白磅踅玲瑯
+十七戇，人講台北應高雄
+十八戇，學生落屎喝冤枉
+十九戇，茉莉蓮嘛來落葬
+二十戇，毋敢赴會驚破功`,
+    tailo:`Tē-it gōng, thè kam-tsià hōo thóo-tī-kong
+Tē-jī gōng, bô leh sìn-táu tuā-tshiū-kong
+Tē-sann gōng, m̄-tsiânn phok-sū ké phòng-hong
+Tē-sì gōng, hāng-lōo niáu-tshí luān-luān tsông
+Tē-gōo gōng, si̍t-phín an-tsuân pàng-hòng-hòng
+Tē-la̍k gōng, àm-kì bûn-kó sì-kè iōng
+Tē-tshit gōng, senn senn sian-jú ta̍k-kang kóng
+Tē-peh gōng, pah-bān ê suànn bô tsing-kong
+Tē-káu gōng, lōo-pinn pok-hun khong-khong-khong
+Tē-tsa̍p gōng, mn̄g A tap B sī tsuan-tióng
+Tsa̍p-it gōng, gín-á m̄ kòo kòo thi̍h-siông
+Tsa̍p-jī gōng, tsú-uí tòng-tsò Un-tsú-kong
+Tsa̍p-sann gōng, Tshiūnn-suann Hóo-suann m̄ bat hóng
+Tsa̍p-sì gōng, tsāi-tē jîn-bûn tsiok lióng-kong
+Tsa̍p-gōo gōng, tsiáu-tn̂g ke-tōo tsin bô liōng
+Tsa̍p-la̍k gōng, tshenn-pōng-pe̍h-pōng se̍h-lin-long
+Tsa̍p-tshit gōng, lâng kóng Tâi-pak ìn Ko-hiông
+Tsa̍p-peh gōng, ha̍k-sing làu-sái huah uan-óng
+Tsa̍p-káu gōng, Ba̍k-nī-liân mā lâi lo̍h-tsòng
+Jī-tsa̍p gōng, m̄ kánn hù-huē kiann phò-kong`,
   },
 ];
