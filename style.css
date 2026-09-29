@@ -130,12 +130,15 @@ button:hover {
 }
 
 .stats-bar {
-  background: transparent;
+  background: var(--primary-bg);
   padding: 15px 0;
   margin-bottom: 20px;
   display: none;
   border-top: 1px solid var(--borders);
   border-bottom: 1px solid var(--borders);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .stats-bar.active {
@@ -143,6 +146,11 @@ button:hover {
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 15px;
+}
+
+/* 聚焦輸入框時瀏覽器自動捲動，避免目前行被固定的統計列遮住 */
+html:has(.stats-bar.active) {
+  scroll-padding-top: 90px;
 }
 
 .stat-item {
@@ -1311,7 +1319,7 @@ rt.has-tone-assist {
   }
 
   .stats-bar {
-    padding: 12px 0;
+    padding: 6px 0;
   }
 
   .stats-bar.active {
@@ -1320,27 +1328,31 @@ rt.has-tone-assist {
     gap: 4px;
   }
 
+  html:has(.stats-bar.active) {
+    scroll-padding-top: 60px;
+  }
+
   .stat-item {
     flex: 1 1 0;
     flex-direction: column;
     justify-content: center;
     min-width: 0;
-    padding: 4px 2px;
+    padding: 0 2px;
     white-space: nowrap;
     text-align: center;
-    gap: 2px;
+    gap: 1px;
   }
 
   .stat-label {
     padding: 0;
     border: 0;
-    font-size: 13px;
+    font-size: 11px;
     line-height: 1.2;
   }
 
   .stat-value {
     min-width: 0;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 1.1;
   }
 
@@ -1436,15 +1448,15 @@ rt.has-tone-assist {
 
   .stat-item {
     flex: 1 1 0;
-    padding: 3px 1px;
+    padding: 0 1px;
   }
 
   .stat-label {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .stat-value {
-    font-size: 22px;
+    font-size: 17px;
   }
 
   rt {
