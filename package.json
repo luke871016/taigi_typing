@@ -6,7 +6,8 @@
   "license": "CC0-1.0",
   "scripts": {
     "patch:kesi": "node scripts/patch-kesi.mjs",
-    "build:kesi": "npm run patch:kesi && esbuild node_modules/@kemdict/kesi/dist/index.js --bundle --format=iife --global-name=Kesi --outfile=kesi.bundle.js --platform=browser --minify"
+    "build:kesi": "npm run patch:kesi && esbuild node_modules/@kemdict/kesi/dist/index.js --bundle --format=iife --global-name=Kesi --outfile=kesi.bundle.js --platform=browser --minify",
+    "build:practice": "node scripts/build-practice-data.mjs"
   },
   "dependencies": {
     "@kemdict/kesi": "^0.3.1"

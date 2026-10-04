@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>練習 | 台語文拍字練習</title>
+    <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet" />
+    <link href="./style.css?v=1.0.19" rel="stylesheet" />
+  </head>
+  <body class="practice-page">
+    <div class="container">
+      <header class="site-header">
+        <h1>台語文拍字練習</h1>
+        <nav class="page-nav" aria-label="功能">
+          <a href="./practice.html" class="is-current" aria-current="page">練習</a>
+          <a href="./index.html">測速</a>
+        </nav>
+      </header>
+
+      <div class="practice-area active" id="practiceArea">
+        <div class="reference-text" id="lessonLine"></div>
+        <div class="input-area">
+          <textarea
+            class="typing-input"
+            id="lessonInput"
+            rows="1"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="直接開始拍字，系統會沓沓仔解鎖欲練習的齒"
+          ></textarea>
+        </div>
+        <p class="practice-banner" id="lessonBanner" hidden></p>
+        <p class="practice-next" id="nextHint" hidden>揤 Enter 練習後一組</p>
+      </div>
+
+      <section class="key-panel" aria-label="按鍵進度佮設定">
+        <details class="key-panel-settings" id="settingsDetails">
+          <summary>
+            <span class="key-panel-note" id="levelNote"></span>
+            <span class="key-panel-toggle">
+              <span class="key-panel-current" id="settingsSummary"></span>
+              <span class="key-panel-label" role="img" aria-label="設定">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                </svg>
+              </span>
+            </span>
+          </summary>
+          <div class="practice-settings-body">
+            <div class="practice-field">
+              <span class="practice-field-label" id="systemLabel">羅馬字</span>
+              <select id="systemSelect" aria-labelledby="systemLabel">
+                <option value="tailo">台羅</option>
+                <option value="poj">白話字</option>
+              </select>
+            </div>
+            <div class="practice-field">
+              <span class="practice-field-label" id="methodLabel">輸入法</span>
+              <select id="methodSelect" aria-labelledby="methodLabel">
+                <option value="numeric">數字調</option>
+                <option value="telex">Telex</option>
+              </select>
+            </div>
+            <div class="practice-field">
+              <span class="practice-field-label" id="inputLabel">拍</span>
+              <select id="inputSelect" aria-labelledby="inputLabel">
+                <option value="roman">羅馬字</option>
+                <option value="hanji">漢字</option>
+              </select>
+            </div>
+            <div class="practice-field">
+              <span class="practice-field-label" id="hintLabel">提示</span>
+              <select id="hintSelect" aria-labelledby="hintLabel">
+                <option value="none">無</option>
+                <option value="code">顯示輸入碼</option>
+              </select>
+            </div>
+            <div class="practice-field">
+              <span class="practice-field-label" id="targetLabel">目標速度</span>
+              <select id="targetSelect" aria-labelledby="targetLabel">
+                <option value="50">50 齒/分</option>
+                <option value="75">75 齒/分</option>
+                <option value="100">100 齒/分</option>
+                <option value="125" selected>125 齒/分</option>
+                <option value="150">150 齒/分</option>
+                <option value="175">175 齒/分</option>
+                <option value="200">200 齒/分</option>
+                <option value="250">250 齒/分</option>
+                <option value="300">300 齒/分</option>
+                <option value="350">350 齒/分</option>
+                <option value="400">400 齒/分</option>
+              </select>
+            </div>
+          </div>
+          <div class="practice-settings-actions">
+            <button type="button" class="practice-skip" id="resetBtn">重設這組的進度</button>
+          </div>
+        </details>
+        <div class="key-tiles" id="keyTiles" role="list" aria-label="按鍵速度"></div>
+      </section>
+    </div>
+    <script src="./practice-data.js?v=4"></script>
+    <script src="./practice.js?v=12"></script>
+  </body>
+</html>

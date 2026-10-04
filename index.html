@@ -63,11 +63,17 @@
       例如：將 v=1.0.0 改為 v=1.0.1，即可強制瀏覽器重新載入所有資源
     -->
     <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet" />
-    <link href="./style.css?v=1.0.8" rel="stylesheet" />
+    <link href="./style.css?v=1.0.19" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
-      <h1>📝 台語文拍字練習</h1>
+      <header class="site-header">
+        <h1>台語文拍字練習</h1>
+        <nav class="page-nav" aria-label="功能">
+          <a href="./practice.html">練習</a>
+          <a href="./index.html" class="is-current" aria-current="page">測速</a>
+        </nav>
+      </header>
 
       <div class="setup-area" id="setupArea">
         <h2>練習文本</h2>
