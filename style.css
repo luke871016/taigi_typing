@@ -1533,7 +1533,6 @@ rt.has-tone-assist {
   gap: 16px;
   margin: 4px 0 8px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--borders);
 }
 
 .site-header h1 {

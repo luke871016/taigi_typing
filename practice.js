@@ -389,8 +389,7 @@
         const mix = `${Math.round(confidence(stat) * 100)}%`;
         tile.dataset.speed = String(Math.round(keySpeed(stat)));
         tile.dataset.mix = mix;
-        const miss = inputMode() === "roman" ? ` · 毋著 ${stat.miss || 0} 擺` : "";
-        tile.dataset.meta = `拍 ${stat.n} 擺${miss}`;
+        tile.dataset.meta = `拍 ${stat.n} 擺`;
         if (!idle) {
           tile.classList.add("has-speed");
           tile.style.setProperty("--key-mix", mix);
@@ -674,9 +673,8 @@
     const parts = [
       `${Math.round(perMinute(correctKeys))} 齒/分`,
       `${perMinute(correctSyllables).toFixed(1)} 音節/分`,
-      `用 ${formatElapsed(elapsed)}`,
+      `${formatElapsed(elapsed)} 拍完`,
     ];
-    if (lesson.mode === "roman") parts.push(`拍毋著 ${state.track.misses} 个`);
     els.banner.hidden = false;
     els.banner.textContent =
       parts.join(" · ") + (opened.length > 0 ? `。過關，解鎖「${opened.join("」「")}」。` : "");
