@@ -152,6 +152,7 @@
     input: document.getElementById("lessonInput"),
     banner: document.getElementById("lessonBanner"),
     nextHint: document.getElementById("nextHint"),
+    nextBtn: document.getElementById("nextBtn"),
     reset: document.getElementById("resetBtn"),
     keyTip: document.createElement("div"),
   };
@@ -535,6 +536,7 @@
       els.input.value = "";
       els.input.readOnly = false;
       els.nextHint.hidden = true;
+      els.nextBtn.hidden = true;
       state.finished = false;
       state.startedAt = null;
       resetTrack();
@@ -682,6 +684,8 @@
     state.finished = true;
     els.input.readOnly = true;
     els.nextHint.hidden = false;
+    els.nextBtn.hidden = false;
+    if (window.matchMedia("(max-width: 768px)").matches) els.input.blur();
   }
 
   function onInput() {
@@ -887,6 +891,10 @@
     if (event.key !== "Enter" || state.composing || event.isComposing) return;
     event.preventDefault();
     if (state.finished) beginLesson({ keepBanner: true });
+  });
+  els.nextBtn.addEventListener("click", () => {
+    if (!state.finished) return;
+    beginLesson({ keepBanner: true });
   });
   els.input.addEventListener("paste", (event) => event.preventDefault());
 

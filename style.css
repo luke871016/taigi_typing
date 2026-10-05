@@ -1752,6 +1752,22 @@ rt.has-tone-assist {
   font-size: 14px;
 }
 
+.practice-next-btn {
+  display: none;
+  margin-top: 12px;
+  background: var(--link-color);
+  border-color: var(--link-color);
+  color: white;
+  font-family: inherit;
+}
+
+.practice-next-btn:hover {
+  background: var(--link-color);
+  border-color: var(--link-color);
+  color: white;
+  opacity: 0.9;
+}
+
 /* 最濟鍵的模式（25 鍵）佇 840px 嘛愛排一逝 */
 .key-tiles {
   display: flex;
@@ -1880,6 +1896,15 @@ rt.has-tone-assist {
 
   .practice-area .typing-input {
     font-size: 16px;
+  }
+
+  .practice-next {
+    display: none;
+  }
+
+  .practice-next-btn:not([hidden]) {
+    display: block;
+    width: 100%;
   }
 
   .key-tiles {
