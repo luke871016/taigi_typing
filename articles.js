@@ -892,7 +892,7 @@ teh kā tsûn-tíng ê gún huan-gîng`,
     url: "https://www.threads.com/share/_nom3z8uT",
     tags: ["七字仔"],
     type: "mapped",
-    new: true,
+    new: false,
     hanji:`第一戇，退甘蔗予土地公
 第二戇，無咧信篤大樹公
 第三戇，毋成博士假膨風
@@ -929,7 +929,7 @@ Tsa̍p-sann gōng, Tshiūnn-suann Hóo-suann m̄-pat hóng
 Tsa̍p-sì gōng, tsāi-tuē lîn-bûn tsiok lióng-kong
 Tsa̍p-gōo gōng, tsiáu-tn̂g kue-tōo tsin bô-liōng
 Tsa̍p-la̍k gōng, tshinn-pōng-pe̍h-pōng se̍h-lin-long
-Tsa̍p-tshit gōng, lâng mn̄g Tâi-pak ìn Ko-hiông
+Tsa̍p-tshit gōng, lâng kóng Tâi-pak ìn Ko-hiông
 Tsa̍p-pueh gōng, ha̍k-sing làu-sái huah uan-óng
 Tsa̍p-káu gōng, mò lì lián mā lâi lo̍h-tsòng
 Lī-tsa̍p gōng, m̄-kánn hù-huē kiann phò-kong`,
