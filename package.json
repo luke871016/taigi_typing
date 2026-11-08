@@ -5,7 +5,6 @@
   "description": "台語文拍字練習網頁",
   "license": "CC0-1.0",
   "scripts": {
-    "test": "node --test tests/*.test.js",
     "patch:kesi": "node scripts/patch-kesi.mjs",
     "build:kesi": "npm run patch:kesi && esbuild node_modules/@kemdict/kesi/dist/index.js --bundle --format=iife --global-name=Kesi --outfile=kesi.bundle.js --platform=browser --minify",
     "build:practice": "node scripts/build-practice-data.mjs"

@@ -17,10 +17,3 @@ npm run build:kesi
 會先套用 `scripts/patch-kesi.mjs`（修正多字元標點正規表達無正確的問題），閣再產生 `kesi.bundle.js` 予 `index.html` 載入。
 
 練習分頁的題庫是辭典「主詞目」，每一詞閣對 `hanji_tailo_word_freq.csv` 的歌詞詞頻。更新辭典了後，佇 `publish/taigi_typing` 跑 `npm run build:practice`，會重新產生 `practice-data.js`。每一列練習會優先抽有詞頻、而且愈常用的詞；無出現佇詞頻表的詞目，干焦佇該个鍵無較捷的詞通練的時陣才會用著。練習是像 keybr 按鍵做單位：網頁會照所揀的羅馬字（台羅／白話字）佮輸入法（數字調／Telex）共詞轉做理論輸入碼（白話字 ⁿ 拍 nn、o͘ 拍 oo），統計按鍵頻率，照頻率一鍵一鍵解鎖。
-Telex 輸入碼佮測速頁的 Telex 輔助攏用仝一套規則：第一／四聲 `x`、第二／八聲 `v`、第三聲 `y`、第五聲 `d`、第六聲 `z`、第七聲 `w`、第九聲 `q`（白話字的 breve `ă` 嘛是第九聲）。台羅 `ts`／`tsh`、白話字 `ch`／`chh` 分別拍 `c`／`ch`；連字符 `-` 拍 `f`，輕聲 `--` 拍 `ff`。白話字 `ⁿ` 拍 `nn`、`o͘` 拍 `oo`。例如台羅 `tshuǎ-bóo` 拍 `chuazfboov`、白話字 `chhǒa-bó͘` 拍 `choazfboov`。拍輸入碼的時陣愛先關輸入法。新 Telex 的按鍵進度另外存，舊 Telex 佮數字調的紀錄攏保留。
-
-檢查輸入碼轉換規則：
-
-```bash
-npm test
-```
