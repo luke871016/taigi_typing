@@ -473,6 +473,7 @@
     <script src="./exampleSentences.js?v=1.0.1"></script>
     <script src="./kesi.bundle.js?v=0.3.1"></script>
     <script src="./articles.js?v=1.1.8"></script>
+    <script src="./roman-code.js?v=1"></script>
     <script>
       // 全域變數
       let hanjiParagraphs = [];
@@ -1960,21 +1961,10 @@
         "\u0300": 3, // grave
         "\u0302": 5, // circumflex
         "\u030C": 6, // caron
-        "\u0306": 6, // breve（部分系統用 ă）
+        "\u0306": 9, // breve（白話字第九聲）
         "\u0304": 7, // macron
         "\u030D": 8, // vertical line above
         "\u030B": 9, // double acute
-      };
-      // 台語齒盤 Telex：1/4=x、2/8=v、3=y、5=d、7=w、9=q
-      const TELEX_TONE_LETTERS = {
-        1: "x",
-        2: "v",
-        3: "y",
-        4: "x",
-        5: "d",
-        7: "w",
-        8: "v",
-        9: "q",
       };
       const TONE_MARK_STRIP_RE = /[\u0300\u0301\u0302\u0304\u0306\u030B\u030C\u030D]/g;
 
@@ -2008,13 +1998,16 @@
           return base + String(tone);
         }
         if (mode === "telex") {
-          return base + (TELEX_TONE_LETTERS[tone] || "");
+          return RomanCode.romanToCode(syllable, "telex", true, currentRomanizationSystem);
         }
         return syllable;
       }
 
       function convertRomanToAssist(text, mode) {
         if (!text || !mode || mode === "none") return "";
+        if (mode === "telex") {
+          return RomanCode.romanToCode(text, mode, true, currentRomanizationSystem);
+        }
         // 保留單一 - 與輕聲 --
         return text
           .split(/(--|-)/)

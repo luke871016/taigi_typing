@@ -12,21 +12,7 @@
   const LESSON_MIN_WORDS = 4;
   const LESSON_SYLLABLES = 24;
 
-  const TONE_COMBINING_MARKS = {
-    "\u0301": 2,
-    "\u0300": 3,
-    "\u0302": 5,
-    "\u030C": 6,
-    "\u0306": 6,
-    "\u0304": 7,
-    "\u030D": 8,
-    "\u030B": 9,
-  };
-  // 台語齒盤 Telex：1/4=x、2/8=v、3=y、5=d、7=w、9=q
-  const TELEX_TONE_LETTERS = { 1: "x", 2: "v", 3: "y", 4: "x", 5: "d", 7: "w", 8: "v", 9: "q" };
-  const TONE_MARK_STRIP_RE = /[\u0300\u0301\u0302\u0304\u0306\u030B\u030C\u030D]/g;
-  // 羅馬字的音節袂用這寡字母收尾，看著就是已經拍落去的調號
-  const TONE_CODE_END_RE = /[0-9xvydwq]$/;
+  const { romanToCode } = RomanCode;
   const KEY_RE = /[a-z0-9]/;
   const CODE_RE = /^[a-z0-9][a-z0-9 -]*$/;
 
@@ -40,43 +26,6 @@
     return count;
   }
 
-  /**
-   * 一个音節的理論輸入碼。complete 為 false 表示這个音節可能猶咧拍，
-   * 無調符就先莫補第一、四聲的調號。
-   */
-  function syllableCode(syllable, method, complete) {
-    const nfd = syllable.normalize("NFD").replace(/\u0131/g, "i");
-    let tone = 0;
-    for (const ch of nfd) {
-      if (TONE_COMBINING_MARKS[ch]) {
-        tone = TONE_COMBINING_MARKS[ch];
-        break;
-      }
-    }
-    const base = nfd
-      .replace(TONE_MARK_STRIP_RE, "")
-      .normalize("NFC")
-      .toLowerCase()
-      .replace(/hⁿ/g, "ⁿh")
-      .replace(/o\u0358/g, "oo")
-      .replace(/ⁿ/g, "nn");
-    if (TONE_CODE_END_RE.test(base)) return base;
-    if (!tone && !complete) return base;
-    if (!tone) tone = /[ptkh]$/.test(base) ? 4 : 1;
-    return base + (method === "numeric" ? String(tone) : TELEX_TONE_LETTERS[tone] || "");
-  }
-
-  function romanToCode(text, method, finalize = true) {
-    const tokens = text.normalize("NFC").split(/(\s+|-+)/);
-    return tokens
-      .map((token, index) => {
-        if (/^\s+$/.test(token)) return " ";
-        if (!/\p{L}/u.test(token)) return token.toLowerCase();
-        return syllableCode(token, method, finalize || index < tokens.length - 1);
-      })
-      .join("");
-  }
-
   const combos = new Map();
 
   function comboOf(sys, method) {
@@ -86,7 +35,7 @@
     const freq = new Map();
     for (const [hanji, tailo, poj, wordFreq = 0] of DATA.words) {
       const roman = sys === "poj" ? poj : tailo;
-      const code = romanToCode(roman, method);
+      const code = romanToCode(roman, method, true, sys);
       if (!CODE_RE.test(code) || countKeys(code) === 0) continue;
       for (const ch of code) {
         if (KEY_RE.test(ch)) freq.set(ch, (freq.get(ch) || 0) + 1);
@@ -195,7 +144,9 @@
   }
 
   function progressId() {
-    return `${system()}-${method()}-${inputMode()}`;
+    // 新 Telex 的按鍵分布無仝，進度另外存，舊紀錄留咧。
+    const layout = method() === "telex" ? "telex-v2" : "numeric";
+    return `${system()}-${layout}-${inputMode()}`;
   }
 
   function progress() {
@@ -492,7 +443,7 @@
 
   function typedOf(raw, finalize = false) {
     if (state.lesson.mode === "hanji") return normalizeHanji(raw);
-    return romanToCode((raw || "").toLowerCase(), method(), finalize);
+    return romanToCode((raw || "").toLowerCase(), method(), finalize, system(), true);
   }
 
   function resetTrack() {
