@@ -63,7 +63,7 @@
       例如：將 v=1.0.0 改為 v=1.0.1，即可強制瀏覽器重新載入所有資源
     -->
     <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet" />
-    <link href="./style.css?v=1.0.19" rel="stylesheet" />
+    <link href="./style.css?v=1.0.20" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
@@ -436,7 +436,7 @@
           <button class="finish-btn" id="finishBtn">結束練習、看成績</button>
         </div>
 
-        <div class="result-section" id="resultSection" style="display: none">
+        <div class="result-section is-reserved" id="resultSection">
           <h2>🎉 練習完成！</h2>
           <div class="result-stats" id="resultStats"></div>
         </div>
@@ -2731,10 +2731,19 @@
           const firstInput = document.getElementById("input0");
           if (firstInput) {
             firstInput.focus();
+            scrollSectionStartToTop(firstInput);
           }
 
           document.getElementById("prepInput").disabled = true;
         }
+      }
+
+      // 將該段起點對齊可視區上緣（統計列黏在上方時由 scroll-padding-top 讓出空間），
+      // 讓輸入法選字框有下方空間、傾向往下展開
+      function scrollSectionStartToTop(input) {
+        const section = input && input.closest(".typing-section");
+        if (!section) return;
+        section.scrollIntoView({ block: "start", behavior: "instant" });
       }
 
       // 打字区按键
@@ -2754,6 +2763,7 @@
           if (nextInput) {
             // 还有下一个输入框，继续
             nextInput.focus();
+            scrollSectionStartToTop(nextInput);
           } else {
             // 最后一个输入框，自动完成练习
             finishPractice();
@@ -3166,6 +3176,7 @@
         // 顯示結果區域
         document.getElementById("resultStats").innerHTML = htmlContent;
         const resultSection = document.getElementById("resultSection");
+        resultSection.classList.remove("is-reserved");
         resultSection.style.display = "block";
         requestAnimationFrame(() => {
           resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -3197,7 +3208,9 @@
       // 关闭结果（返回首頁）
       function closeResult() {
         document.getElementById("resultModal").classList.remove("active");
-        document.getElementById("resultSection").style.display = "none";
+        const resultSection = document.getElementById("resultSection");
+        resultSection.style.display = "";
+        resultSection.classList.add("is-reserved");
 
         document.getElementById("setupArea").style.display = "block";
         document.getElementById("statsBar").classList.remove("active");
@@ -3252,8 +3265,10 @@
 
       // 重新練習（使用相同題目）
       function restartPractice() {
-        // 隱藏結果區域
-        document.getElementById("resultSection").style.display = "none";
+        // 隱藏結果、恢復底部預留高度
+        const resultSection = document.getElementById("resultSection");
+        resultSection.style.display = "";
+        resultSection.classList.add("is-reserved");
 
         // 恢復按鈕
         const finishButtonsContainer = document.getElementById(

@@ -518,6 +518,17 @@ ruby.char-mark.punctuation-mark {
   text-align: center;
 }
 
+/* 練習中先占住約一畫面，最後一題才捲得到可視區上緣 */
+.result-section.is-reserved {
+  display: block;
+  min-height: calc(100dvh - 90px);
+  margin-top: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  visibility: hidden;
+}
+
 .result-section h2 {
   color: var(--secondary-text);
   margin-bottom: 20px;
@@ -1337,6 +1348,10 @@ rt.has-tone-assist {
 
   html:has(.stats-bar.active) {
     scroll-padding-top: 60px;
+  }
+
+  .result-section.is-reserved {
+    min-height: calc(100dvh - 60px);
   }
 
   .stat-item {
